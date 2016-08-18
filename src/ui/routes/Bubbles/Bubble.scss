@@ -1,0 +1,22 @@
+.bubble-grid {}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bubbleHeader {
+  order: 1;
+  flex: 0 1 auto;
+  text-align: center;
+  color: #aaa;
+  font-weight: 200;
+}
+
+.bubbleBody {
+  order: 0;
+  flex: 1 0 auto;
+  position: relative;
+  height: 100%;
+}

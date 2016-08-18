@@ -1,0 +1,133 @@
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.stencil {
+  stroke-width: 4px;
+  stroke: #dadada;
+  fill: none;
+}
+
+.stream {
+  fill: none;
+  stroke: #97CAFF;
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.section {
+  composes: stream;
+  stroke: #4e7f84;
+  stroke-width: 3px;
+  animation: section-fade 700ms;
+  animation-iteration-count: 1;
+}
+
+.restriction {
+  composes: stream;
+  stroke: #fccc14;
+  stroke-width: 3px;
+}
+
+.fishSanctuary {
+  composes: restriction;
+  stroke: #ce4e27;
+  stroke-width: 3px;
+}
+
+.pal {
+  composes: stream;
+  stroke: #acbb39;
+
+  // stroke-linecap: butt;
+  stroke-width: 7px;
+  animation: pal-fade 1000ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes pal-fade {
+  0% {
+    opacity: 0;
+    stroke-width: 0px;
+  }
+
+  50% {
+    opacity: 0.8;
+    stroke-width: 3px;
+  }
+
+  100% {
+    opacity: 1.0;
+    stroke-width: 7px;
+  }
+}
+
+@keyframes section-fade {
+  0% {
+    opacity: 0;
+    stroke-width: 1px;
+  }
+
+  50% {
+    opacity: 0.9;
+    stroke-width: 2px;
+  }
+
+  100% {
+    opacity: 1.0;
+    stroke-width: 3px;
+  }
+}
+
+.accessPoint {
+  stroke: transparentize(#463838, 0.3);
+  fill: #463838;
+  cursor: pointer;
+}
+
+.boringAccessPoint {
+  composes: accessPoint;
+  stroke: transparentize(#ccc, 0.3);
+  fill: transparentize(#ccc, 0.3);
+}
+
+.accessPoint:hover {
+  fill: #ce4e27;
+  stroke-dasharray: 1,4;
+}
+
+.accessPoint:hover .accessPointConnector {
+  fill: #ce4e27;
+  stroke-dasharray: 1,4;
+  stroke: #463838;
+}
+
+.radialText {
+  font: 10px sans-serif;
+  fill: inherit;
+  stroke: none;
+}
+
+.accessPointConnector {
+  fill: none;
+  stroke: none;
+  stroke-dasharray: 1,4;
+  stroke-width: 1px;
+}
+
+.dot {
+  fill: inherit;
+}
+
+.radialGuide {
+  fill: none;
+  stroke: #463838;
+
+  // stroke-dasharray: 1,4;
+  stroke-width: 3px;
+}

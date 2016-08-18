@@ -1,0 +1,27 @@
+$WIDTH: 500px;
+$HEIGHT: 500px;
+
+.counter {
+  font-weight: bold;
+}
+
+.counter--green {
+  composes: counter;
+  color: rgb(25, 200, 25);
+}
+
+.counterContainer {
+  margin: 1em auto;
+}
+
+.bubble-container {
+  margin: 0 auto;
+}
+
+.bubble-item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 50px;
+  width: $WIDTH;
+  height: $HEIGHT;
+}
