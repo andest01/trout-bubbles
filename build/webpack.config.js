@@ -24,6 +24,7 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATHS = [
+  'bootstrap-loader',
   paths.client('main.js')
 ]
 
@@ -104,6 +105,7 @@ If you do wish to continue using the loader, you can uncomment
 the code below and run `npm i --save-dev eslint-loader`. This code
 will be removed in a future release.
 
+*/
 webpackConfig.module.preLoaders = [{
   test: /\.(js|jsx)$/,
   loader: 'eslint',
@@ -114,7 +116,6 @@ webpackConfig.eslint = {
   configFile: paths.base('.eslintrc'),
   emitWarning: __DEV__
 }
-*/
 
 // ------------------------------------
 // Loaders

@@ -7,7 +7,7 @@
 }
 
 .bubbleHeader {
-  order: 1;
+  order: 0;
   flex: 0 1 auto;
   text-align: center;
   color: #aaa;
@@ -15,7 +15,7 @@
 }
 
 .bubbleBody {
-  order: 0;
+  order: 1;
   flex: 1 0 auto;
   position: relative;
   height: 100%;

@@ -92,8 +92,8 @@
 
 .boringAccessPoint {
   composes: accessPoint;
-  stroke: transparentize(#ccc, 0.3);
-  fill: transparentize(#ccc, 0.3);
+  stroke: transparentize(#aaa, 0.3);
+  fill: transparentize(#aaa, 0.3);
 }
 
 .accessPoint:hover {

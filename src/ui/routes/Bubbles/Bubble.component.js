@@ -41,7 +41,10 @@ const BubbleComponent = React.createClass({
     return (
       <div className={classes.bubble}>
         <div className={classes.bubbleHeader}>
-
+          <div>
+            <h2>{this.props.stream.stream.properties.name}</h2>
+            <hr/>
+          </div>
         </div>
         <div className={classes.bubbleBody}>
           <SvgBubbleComponent

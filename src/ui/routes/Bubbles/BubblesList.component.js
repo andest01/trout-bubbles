@@ -20,7 +20,7 @@ const BubblesListComponent = React.createClass({
         this.props.streams.map((streamItem, index) => {
           return (
             <li key={streamItem.stream.properties.gid} className={classes['bubble-item']}>
-              <BubbleComponent index={index+3} stream={streamItem} />
+              <BubbleComponent index={index + 1} stream={streamItem} />
             </li>)
         })
       }

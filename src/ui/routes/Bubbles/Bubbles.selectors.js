@@ -13,7 +13,7 @@ export const getStreamList = createSelector(
 
     let result = _.valuesIn(streamDictionary)
     result = result  
-      .filter(s => s.stream.properties.length_mi > 8 && s.stream.properties.length_mi < 15)
+      .filter(s => s.stream.properties.length_mi > 15 && s.stream.properties.length_mi < 100)
       // .filter(s => s.sections.length > 0)
       // .filter(s => s.restrictions.length > 1)
 
