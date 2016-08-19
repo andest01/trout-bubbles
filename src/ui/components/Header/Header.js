@@ -3,9 +3,8 @@ import { IndexLink, Link } from 'react-router'
 import classes from './Header.scss'
 
 export const Header = () => (
-  <div>
-    <IndexLink to='/' activeClassName={classes.activeRoute}>
-    </IndexLink>
+  <div className='row'>
+    <IndexLink to='/' activeClassName={classes.activeRoute} />
     {' · '}
     <Link to='/bubbles' activeClassName={classes.activeRoute}>
       Counter
