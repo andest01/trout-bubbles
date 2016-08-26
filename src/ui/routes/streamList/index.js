@@ -9,14 +9,14 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const BubbleListContainer = require('./BubbleList.container').default
-      const bubblesReducer = require('./Bubbles.state').default
+      const StreamListContainer = require('./StreamList.container').default
+      const bubblesReducer = require('../Bubbles/Bubbles.state').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'streamList', reducer: bubblesReducer })
+      injectReducer(store, { key: 'bubbles', reducer: bubblesReducer })
 
       /*  Return getComponent   */
-      cb(null, BubbleListContainer)
+      cb(null, StreamListContainer)
 
     /* Webpack named bundle   */
     }, 'streamList')

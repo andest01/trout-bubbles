@@ -9,6 +9,9 @@ export const Header = () => (
     <Link to='/bubbles' activeClassName={classes.activeRoute}>
       Counter
     </Link>
+    <Link to='/streamList' activeClassName={classes.activeRoute}>
+      Streams
+    </Link>
   </div>
 )
 

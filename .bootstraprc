@@ -86,10 +86,10 @@ styles:
   close: true
 
   # Components w/ JavaScript
-  modal: true
-  tooltip: true
-  popover: true
-  carousel: true
+  modal: false
+  tooltip: false
+  popover: false
+  carousel: false
 
   # Utility classes
   utilities: true

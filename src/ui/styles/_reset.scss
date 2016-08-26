@@ -63,9 +63,9 @@
 // /* we use a lot of ULs that aren't bulleted.
 //   you'll have to restore the bullets within content,
 //   which is fine because they're probably customized anyway
-// ul {
-//   list-style: none;
-// }
+ul {
+  list-style: none;
+}
 
 // blockquote, q {
 //   quotes: none;

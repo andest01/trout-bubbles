@@ -1,9 +1,9 @@
 .container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  // position: absolute;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
 }
 
 .stencil {
@@ -85,15 +85,17 @@
 }
 
 .accessPoint {
-  stroke: transparentize(#463838, 0.3);
+  // stroke: transparentize(#463838, 0.3);
   fill: #463838;
   cursor: pointer;
 }
 
 .boringAccessPoint {
   composes: accessPoint;
-  stroke: transparentize(#aaa, 0.3);
-  fill: transparentize(#aaa, 0.3);
+
+  // stroke: transparentize(#aaa, 0.3);
+  fill: #aaa;
+  font: 12px sans-serif;
 }
 
 .accessPoint:hover {
@@ -107,10 +109,62 @@
   stroke: #463838;
 }
 
+.accessPointStream {
+  stroke-width: 1px;
+}
+
+.accessPoint:hover .accessPointStream {
+  fill: #ce4e27;
+  stroke-width: 20px;
+  stroke-color: #ce4e27;
+}
+
 .radialText {
-  font: 10px sans-serif;
-  fill: inherit;
+  font: 16px sans-serif;
+  font-stretch: ultra-condensed;
+  fill: #989898;
   stroke: none;
+  alignment-baseline: middle;
+}
+
+.radialTextSmall {
+  composes: radialText;
+  font: 11px sans-serif;
+  fill: #bbb;
+}
+
+.tributaryText {
+  composes: radialText;
+  fill: #aaa;
+}
+
+.tributaries {
+  opacity: 0.6;
+}
+
+.tributary {
+  composes: section;
+  stroke-width: 1px;
+  stroke: transparentize(#aaa, 0.3);
+}
+
+.tributarySection {
+  composes: tributary;
+  stroke: #4e7f84;
+}
+
+.tributaryDot {
+  fill: #4e7f84;
+}
+
+.tributaryPalSection {
+  composes: tributary;
+  stroke: #acbb39;
+
+  // stroke-linecap: butt;
+  stroke-width: 3px;
+  animation: pal-fade 1000ms;
+  animation-iteration-count: 1;
 }
 
 .accessPointConnector {
@@ -120,13 +174,17 @@
   stroke-width: 1px;
 }
 
+.accessPointDot {
+  fill: transparentize(#aaa, 0.3);
+}
+
 .dot {
   fill: inherit;
 }
 
 .radialGuide {
   fill: none;
-  stroke: #463838;
+  stroke: #a49595;
 
   // stroke-dasharray: 1,4;
   stroke-width: 3px;

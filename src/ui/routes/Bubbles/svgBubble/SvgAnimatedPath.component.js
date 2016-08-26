@@ -38,6 +38,10 @@ const SvgAnimatedPathComponent = React.createClass({
   },
 
   onCreatePath (path) {
+    if (path == null) {
+      return
+    }
+    
     let length = path.getTotalLength()
     path.style.display = 'none'
 

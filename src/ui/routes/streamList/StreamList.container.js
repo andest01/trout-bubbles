@@ -1,31 +1,17 @@
-import React, { PropTypes } from 'react'
-import classes from './BubblesList.style.scss'
-import BubbleComponent from './Bubble.component'
+import { connect } from 'react-redux'
+import { getSouthEasternStreams } from '../Bubbles/Bubbles.state'
+import { getStreamGroups } from './StreamList.selectors'
 
-const StreamListContainer = React.createClass({
-  propTypes: {
-    streams: PropTypes.array.isRequired,
-    getSouthEasternStreams: PropTypes.func.isRequired
-  },
+import StreamListComponent from './StreamList.component'
 
-  componentDidMount () {
-    this.props.getSouthEasternStreams();
-  },
+const mapActionCreators = {
+  getSouthEasternStreams
+}
 
-  render () {
-    return (<div>
-      <ul className={classes['bubble-container']}>
-      {
-
-        this.props.streams.map((streamItem, index) => {
-          return (
-            <li key={streamItem.stream.properties.gid} className={classes['bubble-item']}>
-              <BubbleComponent index={index + 1} stream={streamItem} />
-            </li>)
-        })
-      }
-      </ul>
-    </div>)
+const mapStateToProps = (state) => {
+  return {
+    streams: getStreamGroups(state)
   }
-})
-export default StreamListContainer
+}
+
+export default connect(mapStateToProps, mapActionCreators)(StreamListComponent)

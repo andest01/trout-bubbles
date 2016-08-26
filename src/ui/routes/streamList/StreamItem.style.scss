@@ -1,0 +1,44 @@
+.streamItemContainer {
+  // display: flex;
+  // flex: 1;
+}
+
+.ratio {
+  width: 1.2em;
+  height: 1.2em;
+  text-align: center;
+  margin-top: 0.1em;
+  order: 2;
+
+  // override the normalize.css
+  overflow: visible !important;
+}
+
+.section {
+  fill: #4e7f84;
+}
+
+.public {
+  fill: #acbb39;
+}
+
+.alert {
+  order: 1;
+  composes: ratio;
+  fill: #fccc14;
+  padding-bottom: 0.18em;
+
+  text {
+    fill: #463838;
+  }
+}
+
+.name {
+  order: 3;
+  flex-grow: 1;
+  vertical-align: top;
+}
+
+.streamItem {
+  margin-bottom: 0.2rem;
+}

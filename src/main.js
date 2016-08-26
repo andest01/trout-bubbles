@@ -5,7 +5,7 @@ import { useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './ui/store/createStore'
 import TroutBubblesAppContainer from './ui/TroutBubblesApp.container'
-
+import routes from './ui/routes'
 // ========================================================
 // Browser History Setup
 // ========================================================
@@ -41,7 +41,7 @@ if (__DEBUG__) {
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const routes = require('./ui/routes/index').default(store)
+  // const routes = require('./ui/routes/index').default(store)
 
   ReactDOM.render(
     <TroutBubblesAppContainer

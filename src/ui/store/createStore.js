@@ -23,8 +23,9 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
+  
   const store = createStore(
-    makeRootReducer(),
+    makeRootReducer,
     initialState,
     compose(
       applyMiddleware(...middleware),

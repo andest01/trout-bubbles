@@ -1,0 +1,19 @@
+@import "~bootstrap/scss/_variables";
+@import "~normalize.css/normalize";
+
+.streamList {}
+
+.myHeaderLol {
+  position: sticky;
+  top: -1px;
+}
+
+.list {
+  columns: 4 16em;
+  column-gap: 2em;
+  font-size: 1.0em;
+}
+
+.item {
+  // margin: 2em;
+}

@@ -118,6 +118,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^2.2.0",
     "react-router-redux": "^4.0.0",
+    "react-sticky": "^5.0.4",
     "redux": "^3.0.0",
     "redux-thunk": "^2.0.0",
     "reselect": "^2.5.3",
@@ -125,6 +126,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.0",
     "topojson": "^1.6.26",
+    "turf": "^3.0.14",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
     "yargs": "^4.0.0"
