@@ -7,6 +7,7 @@ import { getProjectionFromFeature } from './SvgBubble.selectors'
 
 import RingComponent from './ring/Ring.component'
 import RingSectionComponent from './ring/RingSection.component'
+import RingWaypointComponent from './ring/RingWaypoint.component'
 
 const FISH_SANCTUARY_ID = 7
 const ANIMATION_SCALE = 2.0
@@ -113,6 +114,30 @@ const SvgBubbleComponent = React.createClass({
   },
 
   renderAccessPoints () {
+    return this.props.streamPackage.accessPoints.map((accessPoint, accessPointsIndex) => {
+      let normalizedOffset = accessPoint.properties.linear_offset
+      let worldCoordinates = {
+        latitude: accessPoint.properties.centroid_latitude,
+        longitude: accessPoint.properties.centroid_longitude
+      }
+      let isBoring = accessPoint.properties.is_over_trout_stream === 0
+      let accessClass = isBoring
+        ? classes.accessPoint
+        : classes.boringAccessPoint
+      let timing = {
+        offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
+        length: 20
+      }
+      return <RingWaypointComponent
+        subjectCoordinates={worldCoordinates}
+        normalizedOffset={normalizedOffset}
+        cssName={accessClass}
+        key={accessPoint.properties.gid}
+        timing={timing}
+        projection={this.projection}
+        labelText={accessPoint.properties.street_name}
+        layout={this.layout} />
+    })
     // return this.props.accessPoints.map((accessPoint, accessPointsIndex) => {
     //   let linearOffset = accessPoint.properties.linear_offset
     //   let tickDegrees = 360 * SQUISH_FACTOR * linearOffset
@@ -461,14 +486,16 @@ const SvgBubbleComponent = React.createClass({
             }
             </g>
           </g>
-          }
 
-          {
-            this.renderAccessPoints()
-          }
+          <g id='waypoints'>
+            <g id='access-points'>
+              {this.renderAccessPoints()}
+            </g>
 
-          {
-            this.renderTributaries()
+            <g id='tributaries'>
+              {this.renderTributaries()}
+            </g>
+          </g>
           }
         </svg>
       </div>
