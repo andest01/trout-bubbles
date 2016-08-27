@@ -119,23 +119,11 @@
   stroke-color: #ce4e27;
 }
 
-.radialText {
-  font: 16px sans-serif;
-  font-stretch: ultra-condensed;
-  fill: #989898;
-  stroke: none;
-  alignment-baseline: middle;
-}
 
-.radialTextSmall {
-  composes: radialText;
-  font: 11px sans-serif;
-  fill: #bbb;
-}
-
+// ✅ TODO: remove this and palce it in /ring
 .tributaryText {
-  composes: radialText;
-  fill: #aaa;
+  // composes: radialText;
+  fill: #aaa; 
 }
 
 .tributaries {
@@ -180,12 +168,4 @@
 
 .dot {
   fill: inherit;
-}
-
-.radialGuide {
-  fill: none;
-  stroke: #a49595;
-
-  // stroke-dasharray: 1,4;
-  stroke-width: 3px;
 }

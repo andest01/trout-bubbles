@@ -32,12 +32,6 @@ const BubbleComponent = React.createClass({
     let roadCrossings = this.props.stream.accessPoints.length.toFixed(2)
     let publicRoadCrossings = this.props.stream.accessPoints.filter(item => item.is_over_publicly_accessible_land
  === 1).length.toFixed(2)
-          // <div>{this.props.stream.stream.properties.name}</div>
-          // <div>Stream Length: {this.props.stream.stream.properties.length_mi.toFixed(2)}</div>
-          // <div>Trout Stream Length: {streamSectionLength}</div>
-          // <div>Accessible Length: {publicLand}</div>
-          // <div>Restrictions Length: {restrictionsLength}</div>
-          // <div>Road Crossings: {roadCrossings} ({publicRoadCrossings} public}</div>
     return (
       <div className={classes.bubble}>
         <div className={classes.bubbleHeader}>
@@ -54,13 +48,7 @@ const BubbleComponent = React.createClass({
         <div className={classes.bubbleBody}>
           <SvgBubbleComponent
             index={this.props.index + 1}
-            stream={this.props.stream.stream}
-            troutStreamSections={this.props.stream.sections}
-            restrictions={this.props.stream.restrictions}
-            accessPoints={this.props.stream.accessPoints}
-            tributaries={this.props.stream.tributaries}
-            circle={this.props.stream.circle}
-            palSections={this.props.stream.palSections} />
+            streamPackage={this.props.stream} />
         </div>
       </div>
     )

@@ -14,7 +14,6 @@ export const createRoutes = (store) => ({
   indexRoute: Home,
   childRoutes: [
     BubblesRoute(store),
-    // maybe i can replace this with jsx...
     StreamListRoute(store)
   ]
 })
