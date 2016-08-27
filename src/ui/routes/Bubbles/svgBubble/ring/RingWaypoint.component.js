@@ -105,8 +105,8 @@ const RingWaypointComponent = React.createClass({
     }
 
     let lineMiddlePoint = {
-      dotXScreenCoordinate: this.getXCoordinate(radialPosition, radius - 15, width),
-      dotYScreenCoordinate: this.getYCoordinate(radialPosition, radius - 15, height)
+      dotXScreenCoordinate: this.getXCoordinate(radialPosition, radius - 6, width),
+      dotYScreenCoordinate: this.getYCoordinate(radialPosition, radius - 6, height)
     }
 
     let lineEndPoint = {

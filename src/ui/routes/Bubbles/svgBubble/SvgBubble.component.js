@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
 import classes from './SvgBubble.scss'
 import * as d3 from 'd3'
-import SvgAnimatedPathComponent from './SvgAnimatedPath.component'
-import _ from 'lodash'
+import StreamComponent from './stream/Stream.component'
 import { getProjectionFromFeature } from './SvgBubble.selectors'
 
 import RingComponent from './ring/Ring.component'
@@ -13,9 +12,7 @@ const FISH_SANCTUARY_ID = 7
 const ANIMATION_SCALE = 2.0
 const DIMENSIONS = 500
 
-const TAU = Math.PI * 2
 const SQUISH_FACTOR = 0.95
-const NORMALIZED_ARC_LENGTH = TAU * SQUISH_FACTOR
 const ROTATE_PHASE = Math.PI / 2
 const RADIUS = 110
 
@@ -31,15 +28,6 @@ const SvgBubbleComponent = React.createClass({
       circle: PropTypes.object.isRequired
     }).isRequired,
     index: PropTypes.number.isRequired
-
-    // stream: PropTypes.object.isRequired,
-    // sections: PropTypes.array.isRequired,
-    // restrictions: PropTypes.array.isRequired,
-    // index: PropTypes.number.isRequired,
-    // palSections: PropTypes.array.isRequired,
-    // accessPoints: PropTypes.array.isRequired,
-    // tributaries: PropTypes.array.isRequired,
-    // circle: PropTypes.object.isRequired
   },
 
   componentWillMount () {
@@ -75,42 +63,12 @@ const SvgBubbleComponent = React.createClass({
     }
   },
 
-  createRadialPath (start, stop, totalLength) {
-    let data = [start, stop].map(mileOffset => {
-      let normalizedOffset = mileOffset / totalLength
-      let arcOffset = (normalizedOffset * NORMALIZED_ARC_LENGTH) - ROTATE_PHASE
-      return arcOffset
-    })
-
-    let pathGenerator = d3.path()
-    pathGenerator.arc(this.width / 2, this.height / 2, RADIUS, data[0], data[1])
-    let result = pathGenerator.toString()
-    return result
-  },
-
   renderOuterCircleAxis () {
     return <RingComponent
       streamPackage={this.props.streamPackage}
       pathGenerator={this.pathGenerator}
       index={this.props.index}
       layout={this.layout} />
-
-    // let streamLength = this.props.stream.properties.length_mi
-    // let ticks = Math.floor(this.props.stream.properties.length_mi)
-    // let tickMod = ticks > 30 ? 5 : 1
-    // let tickDegrees = ((360 * SQUISH_FACTOR) / streamLength)
-    // // remember that these start at 0 and move to myNumber - 1
-    // return _.times(ticks + 1).map(index => {
-    //   return (
-    //     <g key={index} transform={`translate(${this.width / 2}, ${this.height / 2}` + ')rotate(' + (tickDegrees * index - 90)  + ')'}>
-    //       <line className={classes.radialGuide} x1={RADIUS} x2={RADIUS + 3} />
-    //       {
-    //         index % tickMod === 0 
-    //         ? (<text className={classes.radialText} x={RADIUS + 6} >{index}</text>)
-    //         : (<text className={classes.radialTextSmall} x={RADIUS + 6} >{index}</text>)
-    //       }
-    //     </g>)
-    // })
   },
 
   renderAccessPoints () {
@@ -138,151 +96,34 @@ const SvgBubbleComponent = React.createClass({
         labelText={accessPoint.properties.street_name}
         layout={this.layout} />
     })
-    // return this.props.accessPoints.map((accessPoint, accessPointsIndex) => {
-    //   let linearOffset = accessPoint.properties.linear_offset
-    //   let tickDegrees = 360 * SQUISH_FACTOR * linearOffset
-    //   let radianOffset = (Math.PI * 2) * SQUISH_FACTOR
-    //   let obj = {
-    //     'type': 'Point',
-    //     'coordinates': [accessPoint.properties.centroid_longitude, accessPoint.properties.centroid_latitude],
-    //     offsetDegrees: tickDegrees,
-    //     circleX: (RADIUS + 30) * Math.cos((-Math.PI / 2) + radianOffset * linearOffset) + (this.width / 2),
-    //     circleY: (RADIUS + 30) * Math.sin((-Math.PI / 2) + radianOffset * linearOffset) + (this.height / 2)
-    //   }
-
-    //   let point = {...accessPoint.properties, ...obj}
-    //   let accessPath = this.pathGenerator(point)
-    //   let isBoring = accessPoint.properties.is_over_trout_stream === 0 
-        
-    //   // let accessClass = isBoring
-    //   //   ? classes.accessPoint
-    //   //   : classes.boringAccessPoint
-    //   let accessLinePoints = this.projection(point.coordinates)
-
-    //   return (
-    //     <g key={accessPoint.properties.gid} className={accessClass}>
-    //       <SvgAnimatedPathComponent
-    //         cssName={''}
-    //         path={accessPath}
-    //         offset={this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed}
-    //         length={20} />
-    //       <g>
-    //         <line className={classes.accessPointConnector} x1={accessLinePoints[0]} y1={accessLinePoints[1]} x2={point.circleX} y2={point.circleY} />
-    //         <circle className={classes.accessPointDot} cx={point.circleX} cy={point.circleY} r='3' />
-    //         <text 
-    //           transform={`translate(${this.width / 2}, ${this.height / 2}` + ')rotate(' + (point.offsetDegrees - 90)  + ')'}
-    //           className={isBoring ? classes.radialTextSmall : classes.radialText} 
-    //           x={RADIUS + 36}
-    //           >{point.street_name} </text>
-    //       </g>
-    //     </g>
-    //     )
-
-    // })
   },
 
   renderTributaries () {
-    // return this.props.tributaries.map((tributary, tributaryIndex) => {
-    //   let linearOffset = tributary.properties.linear_offset
-    //   let tickDegrees = 360 * SQUISH_FACTOR * linearOffset
-    //   let radianOffset = (Math.PI * 2) * SQUISH_FACTOR
-    //   let obj = {
-    //     'type': 'Point',
-    //     'coordinates': [tributary.properties.centroid_longitude, tributary.properties.centroid_latitude],
-    //     offsetDegrees: tickDegrees,
-    //     circleX: (RADIUS + 30) * Math.cos((-Math.PI / 2) + radianOffset * linearOffset) + (this.width / 2),
-    //     circleY: (RADIUS + 30) * Math.sin((-Math.PI / 2) + radianOffset * linearOffset) + (this.height / 2)
-    //   }
-
-    //   let point = {...tributary.properties, ...obj}
-    //   let accessPath = this.pathGenerator(point)
-    //   let accessClass = classes.accessPoint
-    //   let accessLinePoints = this.projection(point.coordinates)
-    //   return (
-    //     <g key={tributary.properties.gid} className={accessClass}>
-    //       <SvgAnimatedPathComponent
-    //         cssName={classes.accessPointStream}
-    //         path={accessPath}
-    //         offset={this.baseAccessPointOffset + tributaryIndex * this.accessPointSpeed}
-    //         length={20} />
-    //       <g>
-    //         <line className={classes.accessPointConnector} x1={accessLinePoints[0]} y1={accessLinePoints[1]} x2={point.circleX} y2={point.circleY} />
-    //         <circle className={classes.tributaryDot} cx={point.circleX} cy={point.circleY} r='3' />
-    //         <text 
-    //           transform={`translate(${this.width / 2}, ${this.height / 2}` + ')rotate(' + (point.offsetDegrees - 90)  + ')'}
-    //           className={classes.tributaryText} 
-    //           x={RADIUS + 36}
-    //           >{point.streamData.stream.properties.name} </text>
-    //       </g>
-    //     </g>
-    //     )
-
-    // })
+    return this.props.streamPackage.tributaries.map((tributary, accessPointsIndex) => {
+      let normalizedOffset = tributary.properties.linear_offset
+      let worldCoordinates = {
+        latitude: tributary.properties.centroid_latitude,
+        longitude: tributary.properties.centroid_longitude
+      }
+      let isBoring = tributary.properties.is_over_trout_stream === 0
+      let accessClass = isBoring
+        ? classes.accessPoint
+        : classes.boringAccessPoint
+      let timing = {
+        offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
+        length: 20
+      }
+      return <RingWaypointComponent
+        subjectCoordinates={worldCoordinates}
+        normalizedOffset={normalizedOffset}
+        cssName={accessClass}
+        key={tributary.properties.gid}
+        timing={timing}
+        projection={this.projection}
+        labelText={tributary.properties.streamData.stream.properties.name}
+        layout={this.layout} />
+    })
   },
-
-  // renderOuterCircle () {
-  //   return (
-  //     <g>
-        
-  //           <g>
-  //             {
-  //             this.props.palSections.map((pal, palIndex) => {
-  //               let itemOffset = ((this.props.stream.properties.length_mi - pal.properties.stop) / this.props.stream.properties.length_mi) * this.palSectionSpeed
-  //               let offset = this.basePalOffset + itemOffset
-  //               return (<SvgAnimatedPathComponent
-  //                 offset={offset}
-  //                 length={this.baseStreamLength}
-  //                 cssName={classes.pal}
-  //                 key={pal.properties.id}
-  //                 path={this.createRadialPath(pal.properties.start,
-  //                   pal.properties.stop,
-  //                   this.props.stream.properties.length_mi)} />)
-  //             })
-  //             }
-  //           </g>
-  //           <SvgAnimatedPathComponent
-  //             cssName={classes.stream}
-  //             path={this.createRadialPath(0, this.props.stream.properties.length_mi, this.props.stream.properties.length_mi)}
-  //             offset={this.baseStreamOffset}
-  //             length={this.baseStreamLength} />
-  //           <g>
-  //             {
-  //               this.props.sections.map((section, sectionIndex) => {
-  //                 return (<SvgAnimatedPathComponent
-  //                   offset={this.baseTroutSectionOffset + (this.troutSectionSpeed * sectionIndex)}
-  //                   length={this.baseStreamLength}
-  //                   cssName={classes.section}
-  //                   key={section.properties.gid}
-  //                   path={this.createRadialPath(section.properties.start,
-  //                     section.properties.stop,
-  //                     this.props.stream.properties.length_mi)} />)
-  //               })
-  //             }
-  //           </g>
-
-  //           <g>
-  //             {
-  //               this.props.restrictions.map(restriction => {
-  //                 let className = restriction.properties.restriction_id === FISH_SANCTUARY_ID
-  //                   ? classes.fishSanctuary
-  //                   : classes.restriction
-  //                 return (<SvgAnimatedPathComponent
-  //                   offset={this.baseRestrictionOffset}
-  //                   length={this.baseStreamLength}
-  //                   cssName={className}
-  //                   key={restriction.properties.gid}
-  //                   path={this.createRadialPath(restriction.properties.start,
-  //                     restriction.properties.stop,
-  //                     this.props.stream.properties.length_mi)} />)
-  //               })
-  //             }
-  //           </g>
-  //         </g>)
-  // },
-
-          //   {
-          //   this.renderOuterCircle()
-          // }
 
   renderPalRings () {
     return this.props.streamPackage.palSections.map((pal, palIndex) => {
@@ -348,113 +189,27 @@ const SvgBubbleComponent = React.createClass({
   },
 
   render () {
+    let name = this.props.streamPackage.stream.properties.name
+    let id = this.props.streamPackage.stream.properties.gid
     return (
       <div className={classes.container}>
         <svg viewBox={`0 0 ${this.width} ${this.height}`} preserveAspectRatio='xMidYMid meet' version='1.1'
           xmlns='http://www.w3.org/2000/svg'
-          id={'trout_stream_' + this.props.streamPackage.stream.properties.name + '_' + this.props.streamPackage.stream.properties.gid} >
-          <title>{this.props.streamPackage.stream.properties.name} {this.props.streamPackage.stream.properties.gid}</title>
+          id={'trout_stream_' + name + '_' + id} >
+          <title>{name} {id}</title>
           <defs>
             <clipPath id='circle-stencil'>
               <circle cx={this.width / 2} cy={this.height / 2} r={RADIUS - 3} />
             </clipPath>
           </defs>
           <g id='stream' clipPath='url(#circle-stencil)'>
-            <g>
-              {
-                // this.props.palSections.map((pal, palIndex) => {
-                //   let itemOffset = ((this.props.stream.properties.length_mi - pal.properties.stop) / this.props.stream.properties.length_mi) * this.palSectionSpeed
-                //   let offset = this.basePalOffset + itemOffset
-                //   return (<SvgAnimatedPathComponent
-                //     offset={offset}
-                //     length={this.baseStreamLength}
-                //     cssName={classes.pal}
-                //     key={pal.properties.id}
-                //     path={this.pathGenerator(pal.geometry)} />)
-                // })
-              }
-            </g>
-            <g>
-            </g>
-            <g>
-              <SvgAnimatedPathComponent
-                cssName={classes.stream}
-                path={this.svgPath}
-                offset={this.baseStreamOffset}
-                length={this.baseStreamLength} />
-            </g>
-            <g > 
-              <g className={classes.tributaries}>
-              {
-                // this.props.tributaries.map((trib) => {
-                //   return trib.properties.streamData.palSections.map((section, sectionIndex) => {
-                //     return (<SvgAnimatedPathComponent
-                //       offset={this.baseTroutSectionOffset + (this.palSectionSpeed * sectionIndex)}
-                //       length={this.baseStreamLength}
-                //       cssName={classes.tributaryPalSection}
-                //       key={section.properties.gid}
-                //       path={this.pathGenerator(section.geometry)} />)
-                //   })
-                // })
-              }
-
-              {
-                // this.props.tributaries.map((geoJson, sectionIndex) => {
-                //   let section = geoJson.properties.streamData.stream
-                //   let path = this.pathGenerator(section.geometry)
-                //   // console.log(path)
-                //   console.log('tributary', section)
-                //   return (<SvgAnimatedPathComponent
-                //     offset={this.baseTroutSectionOffset + (this.troutSectionSpeed * sectionIndex)}
-                //     length={this.baseStreamLength}
-                //     cssName={classes.tributary}
-                //     key={section.properties.gid}
-                //     path={path} />)
-                // })
-              }
-
-              {
-                // this.props.tributaries.map((trib) => {
-                //   return trib.properties.streamData.sections.map((section, sectionIndex) => {
-                //     return (<SvgAnimatedPathComponent
-                //       offset={this.baseTroutSectionOffset + (this.troutSectionSpeed * sectionIndex)}
-                //       length={this.baseStreamLength}
-                //       cssName={classes.tributarySection}
-                //       key={section.properties.gid}
-                //       path={this.pathGenerator(section.geometry)} />)
-                //   })
-                // })
-              }
-            </g>
-            {
-              // this.props.sections.map((section, sectionIndex) => {
-              //   console.log('trout stream', section)
-              //   return (<SvgAnimatedPathComponent
-              //     offset={this.baseTroutSectionOffset + (this.troutSectionSpeed * sectionIndex)}
-              //     length={this.baseStreamLength}
-              //     cssName={classes.section}
-              //     key={section.properties.gid}
-              //     path={this.pathGenerator(section.geometry)} />)
-              // })
-            }
-            </g>
-            <g>
-            {
-              // this.props.restrictions.map(restriction => {
-              //   let className = restriction.properties.restriction_id === FISH_SANCTUARY_ID
-              //     ? classes.fishSanctuary
-              //     : classes.restriction
-              //   return (<SvgAnimatedPathComponent
-              //     offset={this.baseRestrictionOffset}
-              //     length={this.baseStreamLength}
-              //     cssName={className}
-              //     key={restriction.properties.gid}
-              //     path={this.pathGenerator(restriction.geometry)} />)
-              // })
-            }
-            </g>
+            <StreamComponent
+              streamPackage={this.props.streamPackage}
+              pathGenerator={this.pathGenerator}
+              projection={this.projection}
+              index={this.props.index}
+              layout={this.layout} />
           </g>
-
           <g id='ring'>
             <g id='ring-pal'>
             {
@@ -473,20 +228,17 @@ const SvgBubbleComponent = React.createClass({
               this.renderSectionRings()
             }
             </g>
-
             <g id='ring-restrictions'>
             {
               this.renderRestrictionRings()
             }
             </g>
-
             <g id='ring-axis'>
             {
               this.renderOuterCircleAxis()
             }
             </g>
           </g>
-
           <g id='waypoints'>
             <g id='access-points'>
               {this.renderAccessPoints()}
