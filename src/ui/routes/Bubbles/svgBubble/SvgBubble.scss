@@ -1,5 +1,5 @@
 @import "src/ui/styles/_color";
-$stream_width: 0.05em;
+$stream_width: 0.02em;
 $section_width: $stream_width * 3;
 $restriction_width: $section_width;
 $pal_width: $stream_width * 7;
@@ -7,12 +7,15 @@ $pal_width: $stream_width * 7;
 $tributary_width: $stream_width;
 $tributary_pal_width: $tributary_width * 7;
 
+$small_font_size: 0.6em;
+
 .container {
   // position: absolute;
   // top: 0;
   // bottom: 0;
   // left: 0;
   // right: 0;
+  font-size: 12px;
 }
 
 .stream {
@@ -56,50 +59,51 @@ $tributary_pal_width: $tributary_width * 7;
 @keyframes pal-fade {
   0% {
     opacity: 0;
-    stroke-width: 0px;
+    stroke-width: $pal_width * 0;
   }
 
   50% {
     opacity: 0.8;
-    stroke-width: 3px;
+    stroke-width: $pal_width * 0.3;
   }
 
   100% {
     opacity: 1.0;
-    stroke-width: 7px;
+    stroke-width: $pal_width;
   }
 }
 
 @keyframes section-fade {
   0% {
     opacity: 0;
-    stroke-width: 1px;
+    stroke-width: $section_width * 0.3;
   }
 
   50% {
     opacity: 0.9;
-    stroke-width: 2px;
+    stroke-width: $section_width * 0.5;
   }
 
   100% {
     opacity: 1.0;
-    stroke-width: 3px;
+    stroke-width: $section_width;
   }
 }
 
 .accessPoint {
   // stroke: transparentize($DARK_HENDRICKSON, 0.3);
-  fill: $DARK_HENDRICKSON;
+  fill: $PEWTER_LIGHT;
   cursor: pointer;
   alignment-baseline: central;
+  font: $small_font_size sans-serif;
 }
 
 .boringAccessPoint {
   composes: accessPoint;
 
-  // stroke: transparentize(#aaa, 0.3);
-  fill: #aaa;
-  font: 12px sans-serif;
+  // stroke: transparentize($PEWTER_LIGHT, 0.3);
+  fill: $PEWTER_LIGHT;
+  font: $small_font_size sans-serif;
 }
 
 .accessPoint:hover {
@@ -127,7 +131,7 @@ $tributary_pal_width: $tributary_width * 7;
 // ✅ TODO: remove this and palce it in /ring
 .tributaryText {
   // composes: radialText;
-  fill: #aaa; 
+  fill: $PEWTER_LIGHT; 
 }
 
 .tributaries {
@@ -137,7 +141,7 @@ $tributary_pal_width: $tributary_width * 7;
 .tributary {
   composes: section;
   stroke-width: $tributary_width;
-  stroke: transparentize(#aaa, 0.3);
+  stroke: transparentize($PEWTER_LIGHT, 0.3);
 }
 
 .tributarySection {
