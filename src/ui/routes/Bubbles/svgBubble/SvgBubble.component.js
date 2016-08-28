@@ -57,24 +57,25 @@ const SvgBubbleComponent = React.createClass({
 
   renderAccessPoints () {
     return this.props.streamPackage.accessPoints.map((accessPoint, accessPointsIndex) => {
-      let normalizedOffset = accessPoint.properties.linear_offset
-      let worldCoordinates = {
-        latitude: accessPoint.properties.centroid_latitude,
-        longitude: accessPoint.properties.centroid_longitude
-      }
-      let accessClass = classes.accessPoint
+      // let normalizedOffset = accessPoint.properties.linear_offset
+      // let worldCoordinates = {
+      //   latitude: accessPoint.properties.centroid_latitude,
+      //   longitude: accessPoint.properties.centroid_longitude
+      // }
+      // let accessClass = classes.accessPoint
       let timing = {
         offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
         length: 20
       }
       return <RingWaypointAccessPointComponent
-        subjectCoordinates={worldCoordinates}
-        normalizedOffset={normalizedOffset}
-        cssName={accessClass}
+        // subjectCoordinates={worldCoordinates}
+        // normalizedOffset={normalizedOffset}
+        // cssName={accessClass}
+        accessPoint={accessPoint}
         key={accessPoint.properties.gid}
         timing={timing}
         projection={this.projection}
-        labelText={accessPoint.properties.street_name}
+        // labelText={accessPoint.properties.street_name}
         layout={this.layout} />
     })
   },

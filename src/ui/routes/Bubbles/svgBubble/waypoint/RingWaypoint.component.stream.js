@@ -105,17 +105,19 @@ const RingWaypointStreamComponent = React.createClass({
     // let cssName = svgBubbleClasses.accessPoint
 
     // return the root object that allows hovering, highlighting, etc.
-    return <g className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint}>
-      <RingWaypointLineComponent
-        subjectCoordinates={tributaryConfluenceCoordinates}
-        normalizedOffset={normalizedOffset}
-        projection={this.props.projection}
-        layout={this.props.layout} />
-      {this.renderStream(subjectScreenCoordinates[0], subjectScreenCoordinates[1], streamData)}
-      <g id='label'>
-        {this.renderLabelMarker(labelCircleXCoordinate, labelCircleYCoordinate)}
-        {this.renderLabelText(labelText, offsetLocationDegrees, radius, width, height)}
-      </g>
+    return <g>
+      <a className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
+        <RingWaypointLineComponent
+          subjectCoordinates={tributaryConfluenceCoordinates}
+          normalizedOffset={normalizedOffset}
+          projection={this.props.projection}
+          layout={this.props.layout} />
+        {this.renderStream(subjectScreenCoordinates[0], subjectScreenCoordinates[1], streamData)}
+        <g id='label'>
+          {this.renderLabelMarker(labelCircleXCoordinate, labelCircleYCoordinate)}
+          {this.renderLabelText(labelText, offsetLocationDegrees, radius, width, height)}
+        </g>
+      </a>
     </g>
   }
 })

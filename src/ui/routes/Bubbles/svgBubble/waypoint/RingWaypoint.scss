@@ -1,7 +1,7 @@
 @import "src/ui/styles/_color";
 
 $small_font_size: 0.875em;
-$HOVER_SPEED: 200ms;
+$HOVER_SPEED: 350ms;
 $DESATURATE_AMOUNT: 10%;
 
 @function quite-label-colors($color) {
@@ -11,8 +11,13 @@ $DESATURATE_AMOUNT: 10%;
 .waypoint {
   cursor: pointer;
   font: $small_font_size sans-serif;
+  outline: none;
+  box-shadow: none !important;
+}
 
-  // font-size: $small_font_size;
+.waypoint:focus {
+  outline: none;
+  box-shadow: none !important;
 }
 
 .label {
@@ -22,11 +27,13 @@ $DESATURATE_AMOUNT: 10%;
   fill: quite-label-colors($DARK_HENDRICKSON);
 }
 
+.accessPoint:focus,
 .accessPoint:hover {
   fill: none;
   stroke-dasharray: 1,4;
 }
 
+.waypoint:focus .accessPointConnector,
 .waypoint:hover .accessPointConnector {
   opacity: 1.0;
   animation: line-fade $HOVER_SPEED;
@@ -68,7 +75,7 @@ $DESATURATE_AMOUNT: 10%;
 }
 
 .accessPointDot {
-  fill: $PEWTER_LIGHT;
+  fill: quite-label-colors($DARK_HENDRICKSON);
 }
 
 .subjectAccessPointDot {
