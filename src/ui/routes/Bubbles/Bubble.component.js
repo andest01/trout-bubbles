@@ -36,7 +36,7 @@ const BubbleComponent = React.createClass({
       <div className={classes.bubble}>
         <div className={classes.bubbleHeader}>
           <div>
-            <h2>{this.props.stream.stream.properties.name}</h2>
+            <h5>{this.props.stream.stream.properties.name}</h5>
             <h6>
               <div>Houston, Carver Counties</div>
               <div>-93° 27' 23.04" N, 42° 25' 28.2" W</div>

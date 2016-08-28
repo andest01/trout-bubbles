@@ -1,0 +1,90 @@
+@import "~bootstrap/scss/_variables";
+@import "src/ui/styles/_color";
+@import "./RingWaypoint";
+
+$HOVER_SPEED: 400ms;
+$TRIBUTARY_FONT_SIZE: 6px;
+$TRIBUTARY_HIGHLIGHT_FONT_SIZE: 14px;
+
+.tributaryWaypoint {
+  composes: waypoint;
+}
+
+.tributary {
+  font-size: $TRIBUTARY_FONT_SIZE;
+  opacity: 0.5;
+}
+
+.tributaryWaypoint:hover .tributary {
+  font-size: $TRIBUTARY_HIGHLIGHT_FONT_SIZE;
+  opacity: 1.0;
+  animation: tributary-fade $HOVER_SPEED;
+  animation-iteration-count: 1;
+}
+
+.tributaryConfluencePoint {
+  composes: accessPointDot;
+  fill: none;
+  stroke: none;
+}
+
+.tributaryWaypoint:hover .tributaryConfluencePoint {
+  fill: $RAINBOW_TROUT;
+  stroke-width: 1px;
+  stroke: none;
+
+  // stroke-dasharray: 1,2;
+}
+
+.tributaryLabel {
+  composes: label;
+}
+
+.tributaryWaypoint:hover .tributaryLabel {
+  fill: $DARK_HENDRICKSON;
+  animation: label-fade $HOVER_SPEED;
+  animation-iteration-count: 1;
+}
+
+.tributaryWaypoint:hover .tributaryLabelPoint {
+  fill: $COOL_WATER;
+  animation: waypoint-fade $HOVER_SPEED;
+  animation-iteration-count: 1;
+}
+
+.tributaryLabelPoint {
+  fill: quite-label-colors($COOL_WATER);
+  stroke: none;
+}
+
+@keyframes label-fade {
+  0% {
+    fill: quite-label-colors($DARK_HENDRICKSON);
+  }
+
+  100% {
+    fill: $DARK_HENDRICKSON;
+  }
+}
+
+@keyframes waypoint-fade {
+  0% {
+    fill: quite-label-colors($COOL_WATER);
+  }
+
+  100% {
+    fill: $COOL_WATER;
+  }
+}
+
+@keyframes tributary-fade {
+  0% {
+    font-size: $TRIBUTARY_FONT_SIZE;
+    opacity: 0.5;
+  }
+
+  100% {
+    font-size: $TRIBUTARY_HIGHLIGHT_FONT_SIZE;
+    opacity: 1.0;
+  }
+}

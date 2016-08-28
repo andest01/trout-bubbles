@@ -1,5 +1,6 @@
 @import "src/ui/styles/_color";
-$stream_width: 0.02em;
+@import "~bootstrap/scss/_variables";
+$stream_width: 0.05em;
 $section_width: $stream_width * 3;
 $restriction_width: $section_width;
 $pal_width: $stream_width * 7;
@@ -7,7 +8,8 @@ $pal_width: $stream_width * 7;
 $tributary_width: $stream_width;
 $tributary_pal_width: $tributary_width * 7;
 
-$small_font_size: 0.6em;
+
+// $small_font_size: .875em;
 
 .container {
   // position: absolute;
@@ -16,6 +18,18 @@ $small_font_size: 0.6em;
   // left: 0;
   // right: 0;
   font-size: 12px;
+}
+
+@media (max-width: 720px) {
+  .container {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 544px) {
+  .container {
+    font-size: 20px;
+  }
 }
 
 .stream {
@@ -90,21 +104,21 @@ $small_font_size: 0.6em;
   }
 }
 
-.accessPoint {
-  // stroke: transparentize($DARK_HENDRICKSON, 0.3);
-  fill: $PEWTER_LIGHT;
-  cursor: pointer;
-  alignment-baseline: central;
-  font: $small_font_size sans-serif;
-}
+// .accessPoint {
+//   // stroke: transparentize($DARK_HENDRICKSON, 0.3);
+//   fill: $PEWTER_LIGHT;
+//   cursor: pointer;
+//   alignment-baseline: central;
+//   font: $small_font_size sans-serif;
+// }
 
-.boringAccessPoint {
-  composes: accessPoint;
+// .boringAccessPoint {
+//   composes: accessPoint;
 
-  // stroke: transparentize($PEWTER_LIGHT, 0.3);
-  fill: $PEWTER_LIGHT;
-  font: $small_font_size sans-serif;
-}
+//   // stroke: transparentize($PEWTER_LIGHT, 0.3);
+//   fill: $PEWTER_LIGHT;
+//   font: $small_font_size sans-serif;
+// }
 
 .accessPoint:hover {
   fill: $RAINBOW_TROUT;

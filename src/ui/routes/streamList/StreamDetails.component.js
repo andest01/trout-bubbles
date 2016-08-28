@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
-import BubbleComponent from '../Bubbles/Bubble.component';
+import BubbleComponent from '../Bubbles/Bubble.component'
+import styles from './StreamDetails.scss'
 
 const StreamDetailsComponent = React.createClass({
   propTypes: {
@@ -29,10 +30,13 @@ const StreamDetailsComponent = React.createClass({
     return (
       <div className='container-fluid'>
         <div className='row'>
-          <BubbleComponent stream={stream} index={0} />
-        </div>
+          <div className='col-xs-12'>
+            <BubbleComponent stream={stream} index={0} />
+          </div>
+        </div>  
       </div>
     )
   }
 })
+//  
 export default StreamDetailsComponent

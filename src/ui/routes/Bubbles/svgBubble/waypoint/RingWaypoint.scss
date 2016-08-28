@@ -1,12 +1,38 @@
+@import "src/ui/styles/_color";
+
+$small_font_size: 0.875em;
+$HOVER_SPEED: 200ms;
+$DESATURATE_AMOUNT: 10%;
+
+@function quite-label-colors($color) {
+  @return desaturate(lighten($color, 30%), $DESATURATE_AMOUNT);
+}
+
+.waypoint {
+  cursor: pointer;
+  font: $small_font_size sans-serif;
+
+  // font-size: $small_font_size;
+}
+
+.label {
+  alignment-baseline: central;
+
+  // fill: $PEWTER_LIGHTER;
+  fill: quite-label-colors($DARK_HENDRICKSON);
+}
+
 .accessPoint:hover {
   fill: none;
   stroke-dasharray: 1,4;
 }
 
-.accessPoint:hover .accessPointConnector {
-  fill: none;
-  stroke-dasharray: 1,4;
-  stroke: #463838;
+.waypoint:hover .accessPointConnector {
+  opacity: 1.0;
+  animation: line-fade $HOVER_SPEED;
+  animation-iteration-count: 1;
+
+  // stroke: $PEWTER_LIGHTER;
 }
 
 .accessPointStream {
@@ -16,22 +42,38 @@
 .accessPoint:hover .accessPointStream {
   fill: none;
   stroke-width: 20px;
-  stroke-color: #ce4e27;
+  stroke-color: $RAINBOW_TROUT;
 }
 
 .accessPoint:hover .accessPointDot {
-  fill: #ce4e27;
+  fill: $RAINBOW_TROUT;
 }
 
 .accessPointConnector {
   fill: none;
-  stroke: none;
+  stroke: $DARK_HENDRICKSON;
   stroke-dasharray: 1,4;
   stroke-width: 1px;
+  opacity: 0.0;
+}
+
+@keyframes line-fade {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
 }
 
 .accessPointDot {
-  fill: transparentize(#aaa, 0.3);
+  fill: $PEWTER_LIGHT;
+}
+
+.subjectAccessPointDot {
+  composes: accessPointDot;
+  fill: transparentize($PEWTER_LIGHT, 0.6);
 }
 
 .dot {

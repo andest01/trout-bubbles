@@ -6,7 +6,7 @@ import waypointClasses from './RingWaypoint.scss'
 
 const TAU = Math.PI * 2
 
-const RingWaypointComponent = React.createClass({
+const RingWaypointAccessPointComponent = React.createClass({
   propTypes: {
     subjectCoordinates: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
@@ -127,4 +127,4 @@ const RingWaypointComponent = React.createClass({
   }
 })
 
-export default RingWaypointComponent
+export default RingWaypointAccessPointComponent

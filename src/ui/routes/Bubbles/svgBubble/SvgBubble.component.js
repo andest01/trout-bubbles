@@ -3,15 +3,12 @@ import classes from './SvgBubble.scss'
 import * as d3 from 'd3'
 import StreamComponent from './stream/Stream.component'
 import { getProjectionFromFeature } from './SvgBubble.selectors'
-
 import RingComponent from './ring/Ring.component'
-import RingSectionComponent from './ring/RingSection.component'
-import RingWaypointComponent from './waypoint/RingWaypoint.component'
+// import RingWaypointComponent from './waypoint/RingWaypoint.component'
+import RingWaypointAccessPointComponent from './waypoint/RingWaypoint.component.accessPoint'
+import RingWaypointStreamComponent from './waypoint/RingWaypoint.component.stream'
 
-const FISH_SANCTUARY_ID = 7
-const ANIMATION_SCALE = 2.0
 const DIMENSIONS = 500
-
 const SQUISH_FACTOR = 0.95
 const ROTATE_PHASE = Math.PI / 2
 const RADIUS = 110
@@ -70,7 +67,7 @@ const SvgBubbleComponent = React.createClass({
         offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
         length: 20
       }
-      return <RingWaypointComponent
+      return <RingWaypointAccessPointComponent
         subjectCoordinates={worldCoordinates}
         normalizedOffset={normalizedOffset}
         cssName={accessClass}
@@ -84,24 +81,17 @@ const SvgBubbleComponent = React.createClass({
 
   renderTributaries () {
     return this.props.streamPackage.tributaries.map((tributary, accessPointsIndex) => {
-      let normalizedOffset = tributary.properties.linear_offset
-      let worldCoordinates = {
-        latitude: tributary.properties.centroid_latitude,
-        longitude: tributary.properties.centroid_longitude
-      }
-      let accessClass = classes.accessPoint
       let timing = {
         offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
         length: 20
       }
-      return <RingWaypointComponent
-        subjectCoordinates={worldCoordinates}
-        normalizedOffset={normalizedOffset}
-        cssName={accessClass}
+
+      return <RingWaypointStreamComponent
+        stream={tributary}
         key={tributary.properties.gid}
         timing={timing}
         projection={this.projection}
-        labelText={tributary.properties.streamData.stream.properties.name}
+        pathGenerator={this.pathGenerator}
         layout={this.layout} />
     })
   },
@@ -132,12 +122,12 @@ const SvgBubbleComponent = React.createClass({
               layout={this.layout} />
           </g>
           {this.renderOuterCircleAxis()}
-          <g id='waypoints'>
-            <g id='access-points'>
+          <g id={'waypoints_' + id}>
+            <g id={'access-points_' + id}>
               {this.renderAccessPoints()}
             </g>
 
-            <g id='tributaries'>
+            <g id={'tributaries_' + id}>
               {this.renderTributaries()}
             </g>
           </g>
