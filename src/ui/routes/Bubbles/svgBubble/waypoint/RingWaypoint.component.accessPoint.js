@@ -77,6 +77,10 @@ const RingWaypointAccessPointComponent = React.createClass({
     return result
   },
 
+  onClick (e) {
+    e.preventDefault()
+  },
+
   getYCoordinate (radialPosition, labelOffsetFromRadius, height) {
     let result = labelOffsetFromRadius * Math.sin((-Math.PI * 0.5) + radialPosition) + (height * 0.5)
     return result
@@ -107,7 +111,7 @@ const RingWaypointAccessPointComponent = React.createClass({
     let labelCircleYCoordinate = this.getYCoordinate(radialPosition, labelOffsetFromRadius, height)
     let labelText = this.props.accessPoint.properties.street_name
     return <g >
-      <a className={accessPointClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
+      <a onClick={this.onClick} className={accessPointClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
         <RingWaypointLineComponent
           subjectCoordinates={accessPointWorldCoodinates}
           normalizedOffset={normalizedOffset}

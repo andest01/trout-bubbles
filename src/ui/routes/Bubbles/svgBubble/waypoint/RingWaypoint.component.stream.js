@@ -27,7 +27,7 @@ const RingWaypointStreamComponent = React.createClass({
 
   // className={waypointClasses.accessPointDot + ' ' + waypointClasses.subjectAccessPointDot}
   renderStream (dotXScreenCoordinate, dotYScreenCoordinate, stream) {
-    return (<g id={'subject'}>
+    return (<g id={'subject'} clipPath='url(#circle-stencil)'>
       <g className={streamClasses.tributary} >
         <StreamComponent
           streamPackage={stream}
@@ -42,6 +42,10 @@ const RingWaypointStreamComponent = React.createClass({
         cy={dotYScreenCoordinate}
         r='1' />
     </g>)
+  },
+
+  onClick (e) {
+    e.preventDefault()
   },
 
   renderLabelMarker (dotXScreenCoordinate, dotYScreenCoordinate) {
@@ -106,7 +110,7 @@ const RingWaypointStreamComponent = React.createClass({
 
     // return the root object that allows hovering, highlighting, etc.
     return <g>
-      <a className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
+      <a onClick={this.onClick} className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
         <RingWaypointLineComponent
           subjectCoordinates={tributaryConfluenceCoordinates}
           normalizedOffset={normalizedOffset}

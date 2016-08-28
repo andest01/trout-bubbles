@@ -3,7 +3,7 @@
 @import "./RingWaypoint";
 
 $TRIBUTARY_FONT_SIZE: 6px;
-$TRIBUTARY_HIGHLIGHT_FONT_SIZE: 14px;
+$TRIBUTARY_HIGHLIGHT_FONT_SIZE: 8px;
 
 .tributaryWaypoint {
   composes: waypoint;
@@ -18,7 +18,7 @@ $TRIBUTARY_HIGHLIGHT_FONT_SIZE: 14px;
 .tributaryWaypoint:hover .tributary {
   font-size: $TRIBUTARY_HIGHLIGHT_FONT_SIZE;
   opacity: 1.0;
-  animation: tributary-fade ($HOVER_SPEED * 4);
+  animation: tributary-fade ($HOVER_SPEED * 3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }

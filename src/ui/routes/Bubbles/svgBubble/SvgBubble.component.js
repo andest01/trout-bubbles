@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import classes from './SvgBubble.scss'
 import * as d3 from 'd3'
+import _ from 'lodash'
 import StreamComponent from './stream/Stream.component'
 import { getProjectionFromFeature } from './SvgBubble.selectors'
 import RingComponent from './ring/Ring.component'
@@ -47,6 +48,18 @@ const SvgBubbleComponent = React.createClass({
     }
   },
 
+  renderWaypoints () {
+    let { accessPoints, tributaries } = this.props.streamPackage
+    let waypoints = _.sortBy(_.concat(accessPoints, tributaries), 'properties.linear_offset')
+
+    return waypoints.map((waypoint, index) => {
+      let isAccessPoint = waypoint.properties.street_name != null
+      return isAccessPoint
+        ? this.renderAccessPoint(waypoint, index)
+        : this.renderTributary(waypoint, index)
+    })
+  },
+
   renderOuterCircleAxis () {
     return <RingComponent
       streamPackage={this.props.streamPackage}
@@ -56,45 +69,39 @@ const SvgBubbleComponent = React.createClass({
   },
 
   renderAccessPoints () {
-    return this.props.streamPackage.accessPoints.map((accessPoint, accessPointsIndex) => {
-      // let normalizedOffset = accessPoint.properties.linear_offset
-      // let worldCoordinates = {
-      //   latitude: accessPoint.properties.centroid_latitude,
-      //   longitude: accessPoint.properties.centroid_longitude
-      // }
-      // let accessClass = classes.accessPoint
-      let timing = {
-        offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
-        length: 20
-      }
-      return <RingWaypointAccessPointComponent
-        // subjectCoordinates={worldCoordinates}
-        // normalizedOffset={normalizedOffset}
-        // cssName={accessClass}
-        accessPoint={accessPoint}
-        key={accessPoint.properties.gid}
-        timing={timing}
-        projection={this.projection}
-        // labelText={accessPoint.properties.street_name}
-        layout={this.layout} />
-    })
+    return this.props.streamPackage.accessPoints.map(this.renderAccessPoint)
+  },
+
+  renderAccessPoint (accessPoint, accessPointsIndex) {
+    let timing = {
+      offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
+      length: 20
+    }
+    return <RingWaypointAccessPointComponent
+      accessPoint={accessPoint}
+      key={accessPoint.properties.gid}
+      timing={timing}
+      projection={this.projection}
+      layout={this.layout} />
   },
 
   renderTributaries () {
-    return this.props.streamPackage.tributaries.map((tributary, accessPointsIndex) => {
-      let timing = {
-        offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
-        length: 20
-      }
+    return this.props.streamPackage.tributaries.map(this.renderTributary)
+  },
 
-      return <RingWaypointStreamComponent
-        stream={tributary}
-        key={tributary.properties.gid}
-        timing={timing}
-        projection={this.projection}
-        pathGenerator={this.pathGenerator}
-        layout={this.layout} />
-    })
+  renderTributary (tributary, tributaryIndex) {
+    let timing = {
+      offset: this.baseAccessPointOffset + tributaryIndex * this.accessPointSpeed,
+      length: 20
+    }
+
+    return <RingWaypointStreamComponent
+      stream={tributary}
+      key={tributary.properties.gid}
+      timing={timing}
+      projection={this.projection}
+      pathGenerator={this.pathGenerator}
+      layout={this.layout} />
   },
 
   render () {
@@ -124,13 +131,7 @@ const SvgBubbleComponent = React.createClass({
           </g>
           {this.renderOuterCircleAxis()}
           <g id={'waypoints_' + id}>
-            <g id={'access-points_' + id}>
-              {this.renderAccessPoints()}
-            </g>
-
-            <g id={'tributaries_' + id}>
-              {this.renderTributaries()}
-            </g>
+              {this.renderWaypoints()}
           </g>
           }
         </svg>
