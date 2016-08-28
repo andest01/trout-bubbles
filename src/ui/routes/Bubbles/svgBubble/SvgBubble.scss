@@ -1,3 +1,12 @@
+@import "src/ui/styles/_color";
+$stream_width: 0.05em;
+$section_width: $stream_width * 3;
+$restriction_width: $section_width;
+$pal_width: $stream_width * 7;
+
+$tributary_width: $stream_width;
+$tributary_pal_width: $tributary_width * 7;
+
 .container {
   // position: absolute;
   // top: 0;
@@ -6,46 +15,40 @@
   // right: 0;
 }
 
-.stencil {
-  stroke-width: 4px;
-  stroke: #dadada;
-  fill: none;
-}
-
 .stream {
   fill: none;
-  stroke: #97CAFF;
-  stroke-width: 1px;
+  stroke: $LIGHT_WATER;
+  stroke-width: $stream_width;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .section {
   composes: stream;
-  stroke: #4e7f84;
-  stroke-width: 3px;
+  stroke: $COOL_WATER;
+  stroke-width: $section_width;
   animation: section-fade 700ms;
   animation-iteration-count: 1;
 }
 
 .restriction {
   composes: stream;
-  stroke: #fccc14;
-  stroke-width: 3px;
+  stroke: $BROWN_TROUT;
+  stroke-width: $restriction_width;
 }
 
 .fishSanctuary {
   composes: restriction;
-  stroke: #ce4e27;
-  stroke-width: 3px;
+  stroke: $RAINBOW_TROUT;
+  stroke-width: $restriction_width;
 }
 
 .pal {
   composes: stream;
-  stroke: #acbb39;
+  stroke: $BROOK_TROUT;
 
   // stroke-linecap: butt;
-  stroke-width: 7px;
+  stroke-width: $pal_width;
   animation: pal-fade 1000ms;
   animation-iteration-count: 1;
 }
@@ -85,8 +88,8 @@
 }
 
 .accessPoint {
-  // stroke: transparentize(#463838, 0.3);
-  fill: #463838;
+  // stroke: transparentize($DARK_HENDRICKSON, 0.3);
+  fill: $DARK_HENDRICKSON;
   cursor: pointer;
   alignment-baseline: central;
 }
@@ -100,14 +103,14 @@
 }
 
 .accessPoint:hover {
-  fill: #ce4e27;
+  fill: $RAINBOW_TROUT;
   stroke-dasharray: 1,4;
 }
 
 .accessPoint:hover .accessPointConnector {
-  fill: #ce4e27;
+  fill: $RAINBOW_TROUT;
   stroke-dasharray: 1,4;
-  stroke: #463838;
+  stroke: $DARK_HENDRICKSON;
 }
 
 .accessPointStream {
@@ -115,9 +118,9 @@
 }
 
 .accessPoint:hover .accessPointStream {
-  fill: #ce4e27;
+  fill: $RAINBOW_TROUT;
   stroke-width: 20px;
-  stroke-color: #ce4e27;
+  stroke-color: $RAINBOW_TROUT;
 }
 
 
@@ -133,25 +136,25 @@
 
 .tributary {
   composes: section;
-  stroke-width: 1px;
+  stroke-width: $tributary_width;
   stroke: transparentize(#aaa, 0.3);
 }
 
 .tributarySection {
   composes: tributary;
-  stroke: #4e7f84;
+  stroke: $COOL_WATER;
 }
 
 .tributaryDot {
-  fill: #4e7f84;
+  fill: $COOL_WATER;
 }
 
 .tributaryPalSection {
   composes: tributary;
-  stroke: #acbb39;
+  stroke: $BROOK_TROUT;
 
   // stroke-linecap: butt;
-  stroke-width: 3px;
+  stroke-width: $tributary_pal_width;
   animation: pal-fade 1000ms;
   animation-iteration-count: 1;
 }

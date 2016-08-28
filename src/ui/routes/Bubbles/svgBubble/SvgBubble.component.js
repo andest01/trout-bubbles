@@ -6,7 +6,7 @@ import { getProjectionFromFeature } from './SvgBubble.selectors'
 
 import RingComponent from './ring/Ring.component'
 import RingSectionComponent from './ring/RingSection.component'
-import RingWaypointComponent from './ring/RingWaypoint.component'
+import RingWaypointComponent from './waypoint/RingWaypoint.component'
 
 const FISH_SANCTUARY_ID = 7
 const ANIMATION_SCALE = 2.0
@@ -193,7 +193,10 @@ const SvgBubbleComponent = React.createClass({
     let id = this.props.streamPackage.stream.properties.gid
     return (
       <div className={classes.container}>
-        <svg viewBox={`0 0 ${this.width} ${this.height}`} preserveAspectRatio='xMidYMid meet' version='1.1'
+        <svg
+          viewBox={`0 0 ${this.width} ${this.height}`}
+          preserveAspectRatio='xMidYMid meet'
+          version='1.1'
           xmlns='http://www.w3.org/2000/svg'
           id={'trout_stream_' + name + '_' + id} >
           <title>{name} {id}</title>

@@ -72,12 +72,13 @@ const StreamComponent = React.createClass({
     return (<g id='stream-sections'>
     {
       this.props.streamPackage.sections.map((section, sectionIndex) => {
+        let path = this.props.pathGenerator(section.geometry)
         return (<SvgAnimatedPathComponent
           offset={this.baseTroutSectionOffset + (this.troutSectionSpeed * sectionIndex)}
           length={this.baseStreamLength}
           cssName={classes.section}
           key={section.properties.gid}
-          path={this.props.pathGenerator(section.geometry)} />)
+          path={path} />)
       })
     }
     </g>)

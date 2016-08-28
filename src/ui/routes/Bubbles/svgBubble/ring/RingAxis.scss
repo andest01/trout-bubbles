@@ -1,5 +1,5 @@
 .radialText {
-  font: 16px sans-serif;
+  font: 1em sans-serif;
   font-stretch: ultra-condensed;
   fill: #989898;
   stroke: none;
@@ -8,7 +8,7 @@
 
 .radialTextSmall {
   composes: radialText;
-  font: 11px sans-serif;
+  font: 0.6em sans-serif;
   fill: #bbb;
 }
 
@@ -17,7 +17,7 @@
   stroke: #a49595;
 
   // stroke-dasharray: 1,4;
-  stroke-width: 3px;
+  stroke-width: 0.05em;
 }
 
 .radial {}

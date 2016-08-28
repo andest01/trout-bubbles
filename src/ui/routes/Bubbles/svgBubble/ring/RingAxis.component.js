@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react'
-import classes from '../../Bubble.scss'
 import ringClasses from './RingAxis.scss'
 import _ from 'lodash'
 
-const TICK_MOD = 25
+const TICK_MOD = 20
 const RADIANS_TO_DEGREES = 180 / Math.PI
 
 const RingAxisComponent = React.createClass({
