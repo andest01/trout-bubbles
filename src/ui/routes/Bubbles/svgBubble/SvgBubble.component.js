@@ -84,20 +84,6 @@ const SvgBubbleComponent = React.createClass({
       timing={this.timing}
       projection={this.projection}
       layout={this.layout} />
-    // let dot = (<circle
-    //   cx={0}
-    //   cy={0}
-    //   r='3' />)
-    // let dot = <rect x='-3' y='-1' width='5' height='1.5' />
-
-    // let label = <text dominantBaseline='central'>{accessPoint.properties.linear_offset * this.props.streamPackage.stream.properties.length_mi}</text>
-    // return <RingWaypointLabelComponent
-    //   marker={dot}
-    //   label={label}
-    //   key={accessPointsIndex}
-    //   normalizedOffset={accessPoint.properties.linear_offset}
-    //   projection={this.projection}
-    //   layout={this.layout} />
   },
 
   renderTributaries () {

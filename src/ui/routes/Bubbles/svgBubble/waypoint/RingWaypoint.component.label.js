@@ -33,7 +33,7 @@ const RingWaypointLabelComponent = React.createClass({
       ? 'end'
       : 'start'
 
-    return (<g transform={labelTextTransform}>
+    return (<g transform={labelTextTransform} className={waypointClasses.text}>
       <text
         dominantBaseline='central'
         textAnchor={textAnchor}>{text}</text>
@@ -71,7 +71,7 @@ const RingWaypointLabelComponent = React.createClass({
 
   renderInterstateIcon (offset) {
     let transform = this.getIconTransform(offset)
-    return <g transform={transform}>
+    return <g transform={transform} className={waypointClasses.icon}>
       {this.props.icon}
     </g>
   },
@@ -91,12 +91,11 @@ const RingWaypointLabelComponent = React.createClass({
     let containerTransform = this.getContainerTransform(offsetLocationDegrees, labelOffsetFromRadius)
     let debuggerText = this.renderLabelText(this.props.labelText, offsetLocationDegrees)
     let debuggerIcon = this.renderInterstateIcon(offsetLocationDegrees)
-    return <g className={waypointClasses.waypoint} transform={containerTransform}>
-      <g>
+    return <g className={waypointClasses.label} transform={containerTransform}>
+      <g className={waypointClasses.locationMarker}>
         {this.props.marker}
-
       </g>
-      <g transform='translate(5, 0)'>
+      <g transform='translate(5, 0)' >
         {debuggerIcon}
         {debuggerText}
       </g>

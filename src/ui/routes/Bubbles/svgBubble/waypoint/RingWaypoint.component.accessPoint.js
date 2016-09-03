@@ -11,6 +11,7 @@ const RingWaypointAccessPointComponent = React.createClass({
   propTypes: {
     accessPoint: PropTypes.object.isRequired,
     timing: PropTypes.object.isRequired,
+    projection: PropTypes.func.isRequired,
     layout: PropTypes.shape({
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
@@ -20,9 +21,9 @@ const RingWaypointAccessPointComponent = React.createClass({
     })
   },
 
-  renderSubjectMarker (dotXScreenCoordinate, dotYScreenCoordinate) {
+  renderTargetMarker (dotXScreenCoordinate, dotYScreenCoordinate) {
     return <circle
-      className={accessPointClasses.accessPointCrossing}
+      className={waypointClasses.target}
       cx={dotXScreenCoordinate}
       cy={dotYScreenCoordinate}
       r='1' />
@@ -246,6 +247,7 @@ const RingWaypointAccessPointComponent = React.createClass({
           normalizedOffset={normalizedOffset}
           projection={this.props.projection}
           layout={this.props.layout} />
+        {this.renderTargetMarker(subjectScreenCoordinates[0], subjectScreenCoordinates[1])}
         <RingWaypointLabelComponent
           layout={this.props.layout}
           projection={this.props.projection}
@@ -259,7 +261,7 @@ const RingWaypointAccessPointComponent = React.createClass({
   }
 })
 
-        // {this.renderSubjectMarker(subjectScreenCoordinates[0], subjectScreenCoordinates[1])}
+        // {this.renderTargetMarker(subjectScreenCoordinates[0], subjectScreenCoordinates[1])}
         // {this.renderLabel(labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
 
 export default RingWaypointAccessPointComponent

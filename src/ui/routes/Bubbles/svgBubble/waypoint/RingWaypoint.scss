@@ -3,6 +3,7 @@
 $small_font_size: 0.875em;
 $HOVER_SPEED: 200ms;
 $DESATURATE_AMOUNT: 10%;
+$LOW_OPACITY: 0.4;
 
 @function quite-label-colors($color) {
   @return transparentize(desaturate(lighten($color, 20%), $DESATURATE_AMOUNT), 0.4);
@@ -13,6 +14,35 @@ $DESATURATE_AMOUNT: 10%;
   font: $small_font_size sans-serif;
   outline: none;
   box-shadow: none !important;
+  opacity: $LOW_OPACITY;
+
+  .target {
+    fill: $RAINBOW_TROUT;
+  }
+
+  .line {
+    fill: black;
+    stroke: green;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1.0;
+    animation: fade-in $HOVER_SPEED;
+    animation-iteration-count: 1;
+  }
+}
+
+.label {
+  .locationMarker {
+    fill: $PEWTER_LIGHT;
+  }
+
+  .icon {}
+
+  .text {
+    fill: $DARK_HENDRICKSON;
+  }
 }
 
 .waypoint:focus {
@@ -83,4 +113,14 @@ $DESATURATE_AMOUNT: 10%;
 
 .dot {
   fill: inherit;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: $LOW_OPACITY;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
 }
