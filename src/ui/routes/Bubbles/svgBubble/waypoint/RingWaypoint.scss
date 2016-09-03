@@ -1,11 +1,11 @@
 @import "src/ui/styles/_color";
 
 $small_font_size: 0.875em;
-$HOVER_SPEED: 350ms;
+$HOVER_SPEED: 200ms;
 $DESATURATE_AMOUNT: 10%;
 
 @function quite-label-colors($color) {
-  @return desaturate(lighten($color, 30%), $DESATURATE_AMOUNT);
+  @return transparentize(desaturate(lighten($color, 20%), $DESATURATE_AMOUNT), 0.4);
 }
 
 .waypoint {

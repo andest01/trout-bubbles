@@ -5,9 +5,52 @@ $section_width: $stream_width * 3;
 $restriction_width: $section_width;
 $pal_width: $stream_width * 7;
 
+$MN_HIGHWAY_BLUE: #223A74;
+$MN_HIGHWAY_YELLOW: #FECC08;
+
 $tributary_width: $stream_width;
 $tributary_pal_width: $tributary_width * 7;
 
+:global {
+  .usHighway {
+    stroke: $DARK_HENDRICKSON;
+    stroke-width: 0.1em;
+    fill: $DOUBLE_HAUL_WHITE;
+  }
+
+  .usInterstate {
+    stroke: $DARK_HENDRICKSON;
+    stroke-width: 0.05em;
+    fill: $DOUBLE_HAUL_WHITE;
+  }
+
+  .mnHighway {
+    .background {
+      fill: $MN_HIGHWAY_YELLOW;
+      stroke: $DARK_HENDRICKSON;
+      stroke-width: 0.1em;
+    }
+
+    .state {
+      // fill: $MN_HIGHWAY_BLUE;
+      display: none;
+    }
+
+    .backdrop {
+      fill: $MN_HIGHWAY_BLUE;
+    }
+
+    .minnesota {
+      // fill: $MN_HIGHWAY_BLUE;
+      display: none;
+    }
+
+    .roadNumber {
+       // fill: #FFFFFF;
+       display: none;
+    }
+  }
+}
 
 // $small_font_size: .875em;
 
@@ -175,5 +218,10 @@ $tributary_pal_width: $tributary_width * 7;
   stroke-width: $tributary_pal_width;
   animation: pal-fade 1000ms;
   animation-iteration-count: 1;
+}
+
+.highwaySign {
+  width: 5px;
+  height: 5px;
 }
 

@@ -25,20 +25,56 @@ const RingAxisComponent = React.createClass({
     let tickMod = ticks > TICK_MOD ? 5 : 1
     let tickDegrees = ((360 * arcCompressionRatio) / length)
     let rotatePhaseDegrees = rotatePhase * RADIANS_TO_DEGREES
+    let isReallyLongStream = length > 50
+
 
     return _.times(ticks + 1).map(index => {
       let rotationDegrees = tickDegrees * index - rotatePhaseDegrees
-      let translate = `translate(${width * 0.5},${height * 0.5})`
+
+      if (rotationDegrees > 90) {
+        console.log(index)
+      }
+
+      let humanReadableRotationDegrees = rotationDegrees > 90
+        ? 180
+        : 0
+
+      // let transform = rotationDegrees > 90
+      //   ? 'rotate(180)'
+      //   : 'rotate(0)'
+
+      let textAnchor = rotationDegrees > 90
+        ? 'end'
+        : 'start'
+
+      let xPos = rotationDegrees > 90
+        ? -6
+        : 6
+
+      let preRotate = `rotate(${rotationDegrees})`
+      // let offsetTranslate = `translate(${radius},0)`
+      let secondTranslate = `translate(${width * 0.5},${height * 0.5})`
       let rotate = `rotate(${rotationDegrees})`
-      let transform = `${translate} ${rotate}`
+      let firstTranslate = `translate(${radius}, 0)`
+      let transform = `${secondTranslate}  ${rotate} ${firstTranslate}`
       return (
         <g key={index} transform={transform}>
-          <line className={ringClasses.radialGuide} x1={radius} x2={radius + 3} />
+          <line className={ringClasses.radialGuide} x1={0} x2={0 + 3} />
+          <g transform={`rotate(${humanReadableRotationDegrees})`}>
           {
             index % tickMod === 0
-            ? (<text className={ringClasses.radialText} x={radius + 6} >{index}</text>)
-            : (<text className={ringClasses.radialTextSmall} x={radius + 6} >{index}</text>)
+            ? (<text
+              className={ringClasses.radialText}
+              textAnchor={textAnchor}
+              dominantBaseline='central'
+              x={xPos} >{index}</text>)
+            : isReallyLongStream ? null : (<text
+              className={ringClasses.radialTextSmall}
+              textAnchor={textAnchor}
+              dominantBaseline='central'
+              x={xPos} >{index}</text>)
           }
+          </g>
         </g>)
     })
   },

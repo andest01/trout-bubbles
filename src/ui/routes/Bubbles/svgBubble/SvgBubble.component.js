@@ -5,6 +5,7 @@ import _ from 'lodash'
 import StreamComponent from './stream/Stream.component'
 import { getProjectionFromFeature } from './SvgBubble.selectors'
 import RingComponent from './ring/Ring.component'
+import { getTiming } from './SvgBubble.selectors'
 // import RingWaypointComponent from './waypoint/RingWaypoint.component'
 import RingWaypointAccessPointComponent from './waypoint/RingWaypoint.component.accessPoint'
 import RingWaypointStreamComponent from './waypoint/RingWaypoint.component.stream'
@@ -46,6 +47,8 @@ const SvgBubbleComponent = React.createClass({
       arcCompressionRatio: SQUISH_FACTOR,
       rotatePhase: ROTATE_PHASE
     }
+
+    this.timing = getTiming(this.props)
   },
 
   renderWaypoints () {
@@ -62,6 +65,7 @@ const SvgBubbleComponent = React.createClass({
 
   renderOuterCircleAxis () {
     return <RingComponent
+      timing={this.timing}
       streamPackage={this.props.streamPackage}
       pathGenerator={this.pathGenerator}
       index={this.props.index}
@@ -73,14 +77,10 @@ const SvgBubbleComponent = React.createClass({
   },
 
   renderAccessPoint (accessPoint, accessPointsIndex) {
-    let timing = {
-      offset: this.baseAccessPointOffset + accessPointsIndex * this.accessPointSpeed,
-      length: 20
-    }
     return <RingWaypointAccessPointComponent
       accessPoint={accessPoint}
       key={accessPoint.properties.gid}
-      timing={timing}
+      timing={this.timing}
       projection={this.projection}
       layout={this.layout} />
   },
@@ -90,15 +90,10 @@ const SvgBubbleComponent = React.createClass({
   },
 
   renderTributary (tributary, tributaryIndex) {
-    let timing = {
-      offset: this.baseAccessPointOffset + tributaryIndex * this.accessPointSpeed,
-      length: 20
-    }
-
     return <RingWaypointStreamComponent
       stream={tributary}
       key={tributary.properties.gid}
-      timing={timing}
+      timing={this.timing}
       projection={this.projection}
       pathGenerator={this.pathGenerator}
       layout={this.layout} />
@@ -120,12 +115,78 @@ const SvgBubbleComponent = React.createClass({
             <clipPath id='circle-stencil'>
               <circle cx={this.width / 2} cy={this.height / 2} r={RADIUS - 3} />
             </clipPath>
+            <symbol
+              id='mn-highway'>
+              <g className='mnHighway'>
+                <path className='background' d='M1.5,0.9h8.4c0.3,0,0.6,0.3,0.6,0.6v8.4c0,0.3-0.3,0.6-0.6,0.6H1.5c-0.3,0-0.6-0.3-0.6-0.6
+                  V1.5C0.9,1.2,1.2,0.9,1.5,0.9z'/>
+                <path className='state' d='M1.1,1.3L1.1,1.3L1.1,1.3L1.1,1.3l0,0.1v0l0,0l0,0.1l0,0l0,0l0,0.1l0,0l0,0.1l0,0v0.1V2l0,0v0
+                  v0.1l0,0l0,0l0,0l0,0l0,0v0l0,0v0l0,0v0l0,0l0,0v0v0v0l0,0l0,0l0,0l0,0v0l0,0v0v0.6h1.3v0V3l0,0l0,0l0,0l0,0h0l0,0l0,0l0,0l0,0l0,0
+                  l0,0l0,0h0l0,0l0,0l0,0l0,0h0l0,0h0h0h0l0,0l0,0l0,0l0,0v0v0V2.6v0l0,0v0l0,0v0v0v0l0,0l0,0v0l0,0v0l0,0l0,0v0l0,0l0.1,0v0l0,0V2.1
+                  l0,0l0.1-0.1l0.1-0.1l0,0l0,0l0,0l0,0l0.1,0h0l0.1,0h0l0.1-0.1h0h0h0h0h0h0l0,0l0,0H2.6h0l0,0l0,0h0l0,0h0l0,0l0,0h0l0,0l0,0h0h0
+                  l0,0l0,0v0l0,0v0l0,0l0,0l0,0l0,0h0v0h0h0l0,0h0v0v0h0h0v0l0,0v0l0,0h0v0v0v0l-0.1,0h0h0h0l0,0h0l0,0l0,0v0h0l0,0h0l0,0v0l0,0v0l0,0
+                  h0l-0.1,0h0v0h0h0h0h0h0h0l0,0l0,0v0l0-0.2c0,0,0,0,0,0c0,0,0,0,0,0l0,0h0v0.1L1.1,1.3z'/>
+                <path className='backdrop' d='M1.1,3.3h9.2c0,0,0,4.5,0,6.6c0,0.2-0.2,0.4-0.4,0.4H1.5c-0.2,0-0.4-0.2-0.4-0.4
+                  C1.1,9.9,1.1,3.3,1.1,3.3L1.1,3.3z'/>
+                <g className='minnesota' transform='translate(6.4257813e-7,-0.66808414)'>
+                  <path id='path3776' d='M3.8,3.4V2.7L3.6,3.4L3.4,2.7v0.7H3.2V2.2h0.2l0.2,0.7l0.2-0.7H4v1.2H3.8'/>
+                  <path id='path3778' d='M4.2,3.4V2.2h0.2v1.2H4.2'/>
+                  <path id='path3780' d='M5.1,3.4L4.8,2.6v0.8H4.6V2.2h0.2l0.3,0.7V2.2h0.2v1.2H5.1'/>
+                  <path id='path3782' d='M6,3.4L5.7,2.6v0.8H5.5V2.2h0.2L6,2.9V2.2h0.2v1.2H6'/>
+                  <path id='path3784' d='M6.4,3.4V2.2H7v0.2H6.6v0.3h0.2v0.2H6.6v0.4H7v0.2H6.4'/>
+                  <path id='path3786' d='M7.8,3.1c0,0,0,0.1,0,0.1c0,0,0,0.1-0.1,0.1c0,0-0.1,0.1-0.1,0.1c0,0-0.1,0-0.1,0
+                    c-0.1,0-0.1,0-0.1,0c0,0-0.1,0-0.1-0.1c0,0-0.1-0.1-0.1-0.1c0,0,0-0.1,0-0.1h0.2c0,0,0,0,0,0.1c0,0,0,0,0,0.1c0,0,0,0,0.1,0
+                    c0,0,0,0,0.1,0c0,0,0,0,0.1,0c0,0,0,0,0.1,0c0,0,0,0,0-0.1c0,0,0,0,0-0.1c0,0,0-0.1,0-0.1c0,0,0-0.1-0.1-0.1c0,0,0,0,0,0
+                    c0,0,0,0,0,0c0,0,0,0-0.1,0c0,0-0.1,0-0.1-0.1c0,0-0.1-0.1-0.1-0.1c0,0,0-0.1,0-0.1c0,0,0-0.1,0-0.1c0,0,0-0.1,0.1-0.1
+                    c0,0,0.1-0.1,0.1-0.1c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0.1c0,0,0,0.1,0.1,0.1c0,0,0,0.1,0,0.1H7.6c0,0,0-0.1,0-0.1
+                    c0,0-0.1,0-0.1,0c0,0-0.1,0-0.1,0c0,0,0,0.1,0,0.1c0,0,0,0.1,0,0.1c0,0,0,0,0.1,0.1c0.1,0.1,0.2,0.1,0.3,0.2C7.8,2.9,7.8,3,7.8,3.1
+                    '/>
+                  <path id='path3788' d='M8.6,2.8c0,0.1,0,0.2,0,0.2c0,0.1,0,0.1-0.1,0.2c0,0.1-0.1,0.1-0.1,0.2c0,0-0.1,0-0.2,0
+                    c-0.1,0-0.1,0-0.2,0c0,0-0.1-0.1-0.1-0.2c0-0.1,0-0.1-0.1-0.2c0-0.1,0-0.1,0-0.2c0-0.1,0-0.2,0-0.2c0-0.1,0-0.1,0.1-0.2
+                    c0-0.1,0.1-0.1,0.1-0.2c0,0,0.1,0,0.2,0c0.1,0,0.1,0,0.2,0c0,0,0.1,0.1,0.1,0.2c0,0,0,0.1,0,0.1c0,0,0,0.1,0,0.1c0,0,0,0.1,0,0.1
+                    C8.6,2.7,8.6,2.8,8.6,2.8 M8.5,2.8C8.5,2.8,8.5,2.7,8.5,2.8c0-0.1,0-0.1,0-0.2c0,0,0,0,0-0.1c0,0,0,0,0-0.1c0-0.1,0-0.1-0.1-0.1
+                    c0,0-0.1,0-0.1,0c-0.1,0-0.1,0-0.2,0.1c0,0,0,0.1,0,0.1c0,0,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0.1,0,0.1c0,0,0,0,0,0.1
+                    c0,0,0,0,0,0.1c0,0.1,0.1,0.1,0.2,0.1c0,0,0.1,0,0.1,0c0,0,0-0.1,0.1-0.1c0,0,0,0,0-0.1c0,0,0,0,0-0.1C8.5,3,8.5,2.9,8.5,2.8
+                    C8.5,2.9,8.5,2.8,8.5,2.8'/>
+                  <path id='path3790' d='M9.1,2.4v1H9v-1H8.7V2.2h0.6v0.2H9.1'/>
+                  <path id='path3792' d='M10,3.4L9.9,3.1H9.6L9.6,3.4H9.4l0.3-1.2h0.2l0.3,1.2H10 M9.8,2.6L9.7,2.9h0.2L9.8,2.6'/>
+                </g>
+                <g className='roadNumber'>
+                  <path id='path4089' d='M5.3,7.3c0,0.2,0,0.4-0.1,0.6C5.1,8.1,5,8.3,4.8,8.4C4.7,8.6,4.5,8.7,4.3,8.7
+                    C4.1,8.8,3.8,8.9,3.6,8.9c-0.2,0-0.3,0-0.5-0.1c-0.2,0-0.3-0.1-0.5-0.2l0.3-0.6c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.3,0,0.4,0
+                    c0.1,0,0.3,0,0.4-0.1C4.2,8.1,4.3,8,4.4,8c0.1-0.1,0.2-0.2,0.2-0.3c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2-0.1-0.3
+                    c0-0.1-0.1-0.2-0.2-0.2C4.4,6.8,4.3,6.7,4.3,6.7C4.2,6.6,4.1,6.6,4,6.6c-0.1,0-0.1,0-0.2,0c-0.1,0-0.1,0-0.1,0.1
+                    c0,0-0.1,0.1-0.1,0.1C3.5,6.9,3.4,7,3.3,7L2.7,6.9l0.1-2.1h2.3v0.6H3.4l0,0.7C3.5,6,3.6,6,3.7,6C3.8,6,3.9,6,4,6
+                    c0.2,0,0.4,0,0.5,0.1c0.2,0.1,0.3,0.2,0.4,0.3c0.1,0.1,0.2,0.3,0.3,0.4C5.3,7,5.3,7.1,5.3,7.3'/>
+                  <path id='path4091' d='M8.8,7.3c0,0.2,0,0.4-0.1,0.6C8.6,8.1,8.5,8.3,8.3,8.4C8.2,8.6,8,8.7,7.8,8.7
+                    C7.6,8.8,7.3,8.9,7.1,8.9c-0.2,0-0.3,0-0.5-0.1c-0.2,0-0.3-0.1-0.5-0.2l0.3-0.6c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.3,0,0.4,0
+                    c0.1,0,0.3,0,0.4-0.1C7.7,8.1,7.8,8,7.9,8C8,7.9,8.1,7.8,8.1,7.7c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2-0.1-0.3C8.1,7,8,6.9,8,6.8
+                    C7.9,6.8,7.8,6.7,7.8,6.7c-0.1,0-0.2-0.1-0.3-0.1c-0.1,0-0.1,0-0.2,0c-0.1,0-0.1,0-0.1,0.1c0,0-0.1,0.1-0.1,0.1
+                    C6.9,6.9,6.9,7,6.8,7L6.2,6.9l0.1-2.1h2.3v0.6H6.9l0,0.7C7,6,7.1,6,7.2,6c0.1,0,0.2,0,0.3,0C7.7,6,7.8,6,8,6.1
+                    c0.2,0.1,0.3,0.2,0.4,0.3c0.1,0.1,0.2,0.3,0.3,0.4C8.8,7,8.8,7.1,8.8,7.3'/>
+                </g>
+              </g>
+            </symbol>
+            <symbol id='us-interstate'>
+              <g className='usInterstate' id='g1600'>
+                <path id='path1602' d='M1.3-0.2C2,0,2.7,0.1,3.4,0.1S4.8,0,5.5-0.2C6.1,0,6.8,0.1,7.5,0.1S8.9,0,9.6-0.2
+                  c0.9,1.2,1.5,2.7,1.5,4.4c0,3.4-2.4,6.2-5.6,6.9c-3.2-0.7-5.6-3.5-5.6-6.9C-0.2,2.5,0.4,1,1.3-0.2z'/>
+              </g>
+            </symbol>
+            <symbol id='us-highway'>
+              <g className='usHighway'>
+                <path d='M6,0c0.5,0.4,1.1,0.7,1.8,0.7S9.1,0.4,9.6,0L12,2.4c-0.4,0.6-0.7,1.4-0.7,2.2c0,0.6,0.1,1.1,0.4,1.6
+                  C11.9,6.7,12,7.1,12,7.7c0,1.8-1.5,3.3-3.3,3.3H8.2c-0.9,0-1.7,0.4-2.2,1c-0.5-0.6-1.3-1-2.2-1H3.3C1.5,11,0,9.5,0,7.7
+                  c0-0.5,0.1-1,0.3-1.4c0.2-0.5,0.4-1.1,0.4-1.6C0.7,3.8,0.4,3,0,2.4L2.4,0c0.5,0.4,1.1,0.7,1.8,0.7C4.9,0.7,5.5,0.4,6,0z' />
+              </g>
+            </symbol>
           </defs>
           <g id='stream' clipPath='url(#circle-stencil)'>
             <StreamComponent
               streamPackage={this.props.streamPackage}
               pathGenerator={this.pathGenerator}
               projection={this.projection}
+              timing={getTiming(this.props)}
               index={this.props.index}
               layout={this.layout} />
           </g>

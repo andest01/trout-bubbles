@@ -3,7 +3,7 @@ import BaseApi from '../BaseApi'
 import RegionApiService from './RegionApiService'
 import topojson from 'topojson'
 import _ from 'lodash'
-
+const MINIMUM_LENGTH_MILES = 0.05
 export class RegionGeometryApiService extends BaseApi {
   getCacheKey () {
     var REGION_CACHE_KEY = 'region'
@@ -25,7 +25,7 @@ export class RegionGeometryApiService extends BaseApi {
           restriction_section: topojson.feature(geometry, geometry.objects.restriction_section),
           streamProperties: topojson.feature(geometry, geometry.objects.stream),
           pal_routes: topojson.feature(geometry, geometry.objects.publicly_accessible_land_section),
-          stream_access_point: topojson.feature(geometry, geometry.objects.stream_access_point),
+          stream_access_point: topojson.feature(geometry, geometry.objects.access_point_view),
           stream_tributary: topojson.feature(geometry, geometry.objects.stream_tributary),
           bounding_circles: bounds
         }
@@ -66,8 +66,34 @@ export class RegionGeometryApiService extends BaseApi {
             entry.accessPoints = accessMap[streamId] == null
               ? []
               : accessMap[streamId]
-                .filter(a => true)
                 .sort((a, b) => b.properties.linear_offset - a.properties.linear_offset)
+                .reduce((previousResult, currentItem, currentIndex) => {
+                  if (currentIndex === 0) {
+                    return previousResult.concat(currentItem)
+                  }
+
+                  // get the last item
+                  let previousItem = previousResult[previousResult.length - 1]
+                  let previousRoadName = previousItem.properties.street_name
+                  // TODO: HACK: This is wrong, but it will work.
+                  // data needs to disolve on TIS_C
+                  let currentRoadName = currentItem.properties.street_name
+                  let isSameRoad = currentRoadName === previousRoadName
+                  if (isSameRoad) {
+                    // check to see if distance is too close.
+                    let length = entry.stream.properties.length_mi
+                    let previousOffset = previousItem.properties.linear_offset * length
+                    let currentOffset = currentItem.properties.linear_offset * length
+                    let distance = Math.abs(currentOffset - previousOffset)
+
+                    let isTooClose = distance < MINIMUM_LENGTH_MILES
+                    if (isTooClose) {
+                      // SKIP THIS ITEM - IT'S CLEARLY A DUPLICATE
+                      return previousResult
+                    }
+                  }
+                  return previousResult.concat(currentItem)
+                }, [])
             entry.circle = tempCircleDictionary[streamId]
             return dictionary
           }, {})

@@ -32,27 +32,18 @@ $TRIBUTARY_HIGHLIGHT_FONT_SIZE: 8px;
 .tributaryWaypoint:focus .tributaryConfluencePoint,
 .tributaryWaypoint:hover .tributaryConfluencePoint {
   fill: $RAINBOW_TROUT;
-  stroke-width: 1px;
-  stroke: none;
-
-  // stroke-dasharray: 1,2;
+  stroke-width: 0;
+  stroke: $RAINBOW_TROUT;
 }
 
 .tributaryLabel {
   composes: label;
 }
 
-.tributaryWaypoint:focus .tributaryLabel
+.tributaryWaypoint:focus .tributaryLabel,
 .tributaryWaypoint:hover .tributaryLabel {
   fill: $DARK_HENDRICKSON;
   animation: label-fade $HOVER_SPEED;
-  animation-iteration-count: 1;
-}
-
-.tributaryWaypoint:focus .tributaryLabelPoint,
-.tributaryWaypoint:hover .tributaryLabelPoint {
-  fill: $COOL_WATER;
-  animation: waypoint-fade $HOVER_SPEED;
   animation-iteration-count: 1;
 }
 
@@ -61,17 +52,14 @@ $TRIBUTARY_HIGHLIGHT_FONT_SIZE: 8px;
   stroke: none;
 }
 
-@keyframes label-fade {
-  0% {
-    fill: quite-label-colors($DARK_HENDRICKSON);
-  }
-
-  100% {
-    fill: $DARK_HENDRICKSON;
-  }
+.tributaryWaypoint:focus .tributaryLabelPoint,
+.tributaryWaypoint:hover .tributaryLabelPoint {
+  fill: $COOL_WATER;
+  animation: tributaryLabelPointFade $HOVER_SPEED;
+  animation-iteration-count: 1;
 }
 
-@keyframes waypoint-fade {
+@keyframes tributaryLabelPointFade {
   0% {
     fill: quite-label-colors($COOL_WATER);
   }
@@ -95,5 +83,15 @@ $TRIBUTARY_HIGHLIGHT_FONT_SIZE: 8px;
   100% {
     font-size: $TRIBUTARY_HIGHLIGHT_FONT_SIZE;
     opacity: 1.0;
+  }
+}
+
+@keyframes label-fade {
+  0% {
+    fill: quite-label-colors($DARK_HENDRICKSON);
+  }
+
+  100% {
+    fill: $DARK_HENDRICKSON;
   }
 }

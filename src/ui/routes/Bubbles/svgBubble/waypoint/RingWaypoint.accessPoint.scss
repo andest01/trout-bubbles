@@ -10,40 +10,30 @@
   composes: accessPointDot;
 }
 
-.tributaryWaypoint:focus .accessPointCrossing,
-.tributaryWaypoint:hover .accessPointCrossing {
+.accessPointWaypoint:focus .accessPointCrossing,
+.accessPointWaypoint:hover .accessPointCrossing {
   fill: $RAINBOW_TROUT;
-  animation: accessPointCrossing-fade $HOVER_SPEED;
-  animation-iteration-count: 1;
-}
-
-@keyframes accessPointCrossing-fade {
-  0% {
-    fill: $PEWTER_LIGHT;
-  }
-
-  100% {
-    fill: $RAINBOW_TROUT;
-  }
+  stroke-width: 1px;
+  stroke: $RAINBOW_TROUT;
 }
 
 .accessPointLabel {
   composes: label;
 }
 
-.tributaryWaypoint:focus .accessPointLabel,
-.tributaryWaypoint:hover .accessPointLabel {
+.accessPointWaypoint:focus .accessPointLabel,
+.accessPointWaypoint:hover .accessPointLabel {
   fill: $DARK_HENDRICKSON;
   animation: label-fade $HOVER_SPEED;
   animation-iteration-count: 1;
 }
 
 .accessPointLabelPoint {
-  fill: $PEWTER_LIGHT;
+  fill: quite-label-colors($DARK_HENDRICKSON);
 }
 
-.tributaryWaypoint:focus .accessPointLabelPoint,
-.tributaryWaypoint:hover .accessPointLabelPoint {
+.accessPointWaypoint:focus .accessPointLabelPoint,
+.accessPointWaypoint:hover .accessPointLabelPoint {
   fill: $DARK_HENDRICKSON;
   animation: label-fade $HOVER_SPEED;
   animation-iteration-count: 1;
@@ -51,7 +41,7 @@
 
 @keyframes label-fade {
   0% {
-    fill: $PEWTER_LIGHT;
+    fill: quite-label-colors($DARK_HENDRICKSON);
   }
 
   100% {
@@ -59,12 +49,11 @@
   }
 }
 
-@keyframes waypoint-fade {
-  0% {
-    fill: quite-label-colors($COOL_WATER);
-  }
+.roadSign {
+  width: 1em;
+  height: 1em;
+}
 
-  100% {
-    fill: $COOL_WATER;
-  }
+.roadSignText {
+  fill: #fff;
 }

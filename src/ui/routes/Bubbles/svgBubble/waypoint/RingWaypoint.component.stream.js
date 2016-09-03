@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import StreamComponent from '../stream/Stream.component'
 import RingWaypointLineComponent from './RingWaypoint.component.line'
+import { getTiming } from '../SvgBubble.selectors'
 
 import streamClasses from './RingWaypoint.stream.scss'
 import waypointClasses from './RingWaypoint.scss'
@@ -10,10 +11,7 @@ const TAU = Math.PI * 2
 const RingWaypointStreamComponent = React.createClass({
   propTypes: {
     stream: PropTypes.object.isRequired,
-    timing: PropTypes.shape({
-      offset: PropTypes.number.isRequired,
-      length: PropTypes.number.isRequired
-    }),
+    timing: PropTypes.object.isRequired,
     projection: PropTypes.func.isRequired,
     pathGenerator: PropTypes.func.isRequired,
     layout: PropTypes.shape({
@@ -30,6 +28,7 @@ const RingWaypointStreamComponent = React.createClass({
     return (<g id={'subject'} clipPath='url(#circle-stencil)'>
       <g className={streamClasses.tributary} >
         <StreamComponent
+          timing={this.props.timing}
           streamPackage={stream}
           pathGenerator={this.props.pathGenerator}
           projection={this.props.projection}
@@ -48,11 +47,49 @@ const RingWaypointStreamComponent = React.createClass({
     e.preventDefault()
   },
 
+  transformDownstreamLabel (offsetLocationDegrees, height, width, radius, labelOffsetFromRadius) {
+    let preRotate = `rotate(${(-offsetLocationDegrees + 90) * 0})`
+    let translate = `translate(${labelOffsetFromRadius}, ${0})`
+    let postRotate = `rotate(${offsetLocationDegrees - 90})`
+    let secondTranslate = `translate(${width / 2}, ${height / 2})`
+
+    let transform = `${secondTranslate} ${postRotate} ${translate} ${preRotate}`
+
+    return transform
+  },
+
+  transformUpstreamLabel (offsetLocationDegrees, height, width, radius, labelOffsetFromRadius) {
+    let preRotate = `rotate(${(-offsetLocationDegrees + 270) * 0})`
+    let translate = `translate(${labelOffsetFromRadius}, ${0})`
+    let postRotate = `rotate(${offsetLocationDegrees - 90})`
+    let secondTranslate = `translate(${width / 2}, ${height / 2})`
+    let transform = `${secondTranslate} ${postRotate} ${translate}  ${preRotate}`
+
+    return transform
+  },
+
+  getTransformText (offsetLocationDegrees, height, width, radius, labelOffsetFromRadius) {
+    return offsetLocationDegrees > 180
+      ? this.transformUpstreamLabel(offsetLocationDegrees, height, width, radius, labelOffsetFromRadius)
+      : this.transformDownstreamLabel(offsetLocationDegrees, height, width, radius, labelOffsetFromRadius)
+  },
+
+  renderLabel (labelCircleXCoordinate, labelCircleYCoordinate, labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius) {
+    let transform = this.getTransformText(offsetLocationDegrees, height, width, radius, labelOffsetFromRadius)
+    return (<g id='label' transform={transform}>
+      {this.renderLabelMarker(labelCircleXCoordinate, labelCircleYCoordinate)}
+      {this.renderLabelText(labelText, offsetLocationDegrees, radius, width, height)}
+    </g>)
+  },
+
   renderLabelMarker (dotXScreenCoordinate, dotYScreenCoordinate) {
+    // cx={dotXScreenCoordinate}
+    //   cy={dotYScreenCoordinate}
+
     return <circle
       className={streamClasses.tributaryLabelPoint}
-      cx={dotXScreenCoordinate}
-      cy={dotYScreenCoordinate}
+      cx={0}
+      cy={0}
       r='3' />
   },
 
@@ -61,11 +98,27 @@ const RingWaypointStreamComponent = React.createClass({
       throw new Error('argumetns cannot be null')
     }
 
+    let cssClass = streamClasses.tributaryLabel
+    let transform = offset > 180
+      ? 'rotate(180)'
+      : 'rotate(0)'
+
+    let textAnchor = offset > 180
+      ? 'end'
+      : 'start'
+
+    let xPos = offset > 180
+      ? -6
+      : 6
+
     // let cssClass =
     return <text
-      transform={`translate(${width / 2}, ${height / 2}` + ')rotate(' + (offset - 90) + ')'}
-      x={radius + 36}
-      className={streamClasses.tributaryLabel}
+      // transform={`translate(${width / 2}, ${height / 2}` + ')rotate(' + (offset - 90) + ')'}
+      transform={transform}
+      className={cssClass}
+      dominantBaseline='central'
+      textAnchor={textAnchor}
+      x={xPos}
       >{text} </text>
   },
 
@@ -77,6 +130,10 @@ const RingWaypointStreamComponent = React.createClass({
   getYCoordinate (radialPosition, labelOffsetFromRadius, height) {
     let result = labelOffsetFromRadius * Math.sin((-Math.PI * 0.5) + radialPosition) + (height * 0.5)
     return result
+  },
+
+  getCounterRotation (offsetLocationDegrees) {
+    // doint a pure counter-rotation over-compresses at the bottom.
   },
 
   render () {
@@ -107,7 +164,6 @@ const RingWaypointStreamComponent = React.createClass({
     let labelCircleYCoordinate = this.getYCoordinate(radialPosition, labelOffsetFromRadius, height)
 
     // let cssName = svgBubbleClasses.accessPoint
-
     // return the root object that allows hovering, highlighting, etc.
     return <g>
       <a onClick={this.onClick} className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
@@ -117,10 +173,7 @@ const RingWaypointStreamComponent = React.createClass({
           projection={this.props.projection}
           layout={this.props.layout} />
         {this.renderStream(subjectScreenCoordinates[0], subjectScreenCoordinates[1], streamData)}
-        <g id='label'>
-          {this.renderLabelMarker(labelCircleXCoordinate, labelCircleYCoordinate)}
-          {this.renderLabelText(labelText, offsetLocationDegrees, radius, width, height)}
-        </g>
+        {this.renderLabel(labelCircleXCoordinate, labelCircleYCoordinate, labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
       </a>
     </g>
   }
