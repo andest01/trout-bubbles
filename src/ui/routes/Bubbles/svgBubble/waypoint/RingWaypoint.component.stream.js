@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import StreamComponent from '../stream/Stream.component'
 import RingWaypointLineComponent from './RingWaypoint.component.line'
 import { getTiming } from '../SvgBubble.selectors'
+import RingWaypointLabelComponent from './RingWaypoint.component.label'
 
 import streamClasses from './RingWaypoint.stream.scss'
 import waypointClasses from './RingWaypoint.scss'
@@ -82,10 +83,7 @@ const RingWaypointStreamComponent = React.createClass({
     </g>)
   },
 
-  renderLabelMarker (dotXScreenCoordinate, dotYScreenCoordinate) {
-    // cx={dotXScreenCoordinate}
-    //   cy={dotYScreenCoordinate}
-
+  renderLabelMarker () {
     return <circle
       className={streamClasses.tributaryLabelPoint}
       cx={0}
@@ -165,6 +163,8 @@ const RingWaypointStreamComponent = React.createClass({
 
     // let cssName = svgBubbleClasses.accessPoint
     // return the root object that allows hovering, highlighting, etc.
+    let icon = this.renderLabelMarker()
+    let marker = <rect x='-3' y='-0.5' width='5' height='1' />
     return <g>
       <a onClick={this.onClick} className={streamClasses.tributaryWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
         <RingWaypointLineComponent
@@ -172,11 +172,18 @@ const RingWaypointStreamComponent = React.createClass({
           normalizedOffset={normalizedOffset}
           projection={this.props.projection}
           layout={this.props.layout} />
-        {this.renderStream(subjectScreenCoordinates[0], subjectScreenCoordinates[1], streamData)}
-        {this.renderLabel(labelCircleXCoordinate, labelCircleYCoordinate, labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
+        <RingWaypointLabelComponent
+          layout={this.props.layout}
+          normalizedOffset={normalizedOffset}
+          marker={marker}
+          icon={icon}
+          labelText={labelText} />
       </a>
     </g>
   }
 })
+
+// {this.renderStream(subjectScreenCoordinates[0], subjectScreenCoordinates[1], streamData)}
+// {this.renderLabel(labelCircleXCoordinate, labelCircleYCoordinate, labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
 
 export default RingWaypointStreamComponent

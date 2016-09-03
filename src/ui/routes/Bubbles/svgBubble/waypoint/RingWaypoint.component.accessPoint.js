@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import RingWaypointLineComponent from './RingWaypoint.component.line'
+import RingWaypointLabelComponent from './RingWaypoint.component.label'
 const TAU = Math.PI * 2
 
 import accessPointClasses from './RingWaypoint.accessPoint.scss'
@@ -10,7 +11,6 @@ const RingWaypointAccessPointComponent = React.createClass({
   propTypes: {
     accessPoint: PropTypes.object.isRequired,
     timing: PropTypes.object.isRequired,
-    projection: PropTypes.func.isRequired,
     layout: PropTypes.shape({
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
@@ -205,6 +205,14 @@ const RingWaypointAccessPointComponent = React.createClass({
     return result
   },
 
+  debuggerInterstate (number) {
+    let asdf = -6
+    return (<g>
+      <use className={accessPointClasses.roadSign} xlinkHref='#us-interstate' x={asdf} y={asdf} />
+      <text textAnchor='middle' fontSize='7px' x={asdf + 6} y={asdf + 5} dominantBaseline='central'>{number}</text>
+    </g>)
+  },
+
   render () {
     let { accessPoint, projection } = this.props
     let { width, height, radius, arcCompressionRatio } = this.props.layout
@@ -229,6 +237,8 @@ const RingWaypointAccessPointComponent = React.createClass({
 
     let labelText = `${this.props.accessPoint.properties.street_name}`
 
+    let markerComponent = <rect x='-3' y='-0.5' width='5' height='1' />
+    let iconComponent = this.debuggerInterstate(22)
     return <g >
       <a onClick={this.onClick} className={accessPointClasses.accessPointWaypoint + ' ' + waypointClasses.waypoint} xlinkHref={'#'}>
         <RingWaypointLineComponent
@@ -236,12 +246,21 @@ const RingWaypointAccessPointComponent = React.createClass({
           normalizedOffset={normalizedOffset}
           projection={this.props.projection}
           layout={this.props.layout} />
-        {this.renderSubjectMarker(subjectScreenCoordinates[0], subjectScreenCoordinates[1])}
-        {this.renderLabel(labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
+        <RingWaypointLabelComponent
+          layout={this.props.layout}
+          projection={this.props.projection}
+          normalizedOffset={normalizedOffset}
+          labelText={labelText}
+          icon={iconComponent}
+          marker={markerComponent}
+          />
       </a>
     </g>
   }
 })
+
+        // {this.renderSubjectMarker(subjectScreenCoordinates[0], subjectScreenCoordinates[1])}
+        // {this.renderLabel(labelText, offsetLocationDegrees, radius, width, height, labelOffsetFromRadius)}
 
 export default RingWaypointAccessPointComponent
 
