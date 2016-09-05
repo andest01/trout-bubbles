@@ -117,4 +117,19 @@ export class RegionGeometryApiService extends BaseApi {
   }
 }
 
+// const updateWithNearestNeighbors = (items) => {
+//   if (items == null || items.length === 0) {
+//     return
+//   }
+
+//   let totalItems = items.length
+//   items.forEach((item, index) => {
+//     let hasUpstreamNeighbor = index + 1 < totalItems
+//     let hasDownstreamNeighbor = index > 0
+
+//     let itemOffset = item.properties.linear_offset
+//     item.properties.
+//   })
+// }
+
 export default new RegionGeometryApiService()

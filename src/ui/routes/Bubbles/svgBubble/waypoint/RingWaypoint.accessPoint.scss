@@ -1,3 +1,19 @@
 @import "~bootstrap/scss/_variables";
 @import "src/ui/styles/_color";
 @import "./RingWaypoint";
+
+.roadSignText {
+  fill: #fff;
+  font-size: 0.6em;
+  text-decoration: none;
+}
+
+.roadSignText:hover,
+.roadSignText:focus {
+  text-decoration: none;
+}
+
+.roadSignTextDark {
+  fill: $DARK_HENDRICKSON;
+  composes: roadSignText;
+}

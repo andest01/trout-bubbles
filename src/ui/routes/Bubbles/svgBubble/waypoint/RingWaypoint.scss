@@ -1,9 +1,11 @@
 @import "src/ui/styles/_color";
 
 $small_font_size: 0.875em;
-$HOVER_SPEED: 200ms;
+$smallest_font_size: 0.75em;
+$HOVER_SPEED: 250ms;
 $DESATURATE_AMOUNT: 10%;
-$LOW_OPACITY: 0.4;
+$LOW_OPACITY: 0.3;
+$MEDIUM_OPACITY: 0.6;
 
 @function quite-label-colors($color) {
   @return transparentize(desaturate(lighten($color, 20%), $DESATURATE_AMOUNT), 0.4);
@@ -14,10 +16,10 @@ $LOW_OPACITY: 0.4;
   font: $small_font_size sans-serif;
   outline: none;
   box-shadow: none !important;
-  opacity: $LOW_OPACITY;
+  opacity: $MEDIUM_OPACITY;
 
   .target {
-    fill: $RAINBOW_TROUT;
+    fill: $DARK_HENDRICKSON;
   }
 
   .line {
@@ -30,7 +32,21 @@ $LOW_OPACITY: 0.4;
     opacity: 1.0;
     animation: fade-in $HOVER_SPEED;
     animation-iteration-count: 1;
+
+    .icon,
+    .text {
+      fill: $DARK_HENDRICKSON;
+      font-color: $DARK_HENDRICKSON;
+      animation: fade-in $HOVER_SPEED;
+      animation-iteration-count: 1;
+    }
   }
+}
+
+.waypointBoring {
+  composes: waypoint;
+  opacity: $LOW_OPACITY;
+  font-size: $smallest_font_size;
 }
 
 .label {
@@ -38,10 +54,36 @@ $LOW_OPACITY: 0.4;
     fill: $PEWTER_LIGHT;
   }
 
-  .icon {}
+  .icon {
+    text-decoration: none;
+  }
 
   .text {
+    fill: $PEWTER_LIGHT;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    fill: $PEWTER_LIGHT;
+    opacity: $MEDIUM_OPACITY;
+    font-color: $PEWTER_LIGHT;
+  }
+
+  100% {
     fill: $DARK_HENDRICKSON;
+    font-color: $DARK_HENDRICKSON;
+    opacity: 1.0;
+  }
+}
+
+@keyframes label-fade-in {
+  0% {
+    opacity: $MEDIUM_OPACITY;
+  }
+
+  100% {
+    opacity: 1.0;
   }
 }
 
@@ -90,6 +132,7 @@ $LOW_OPACITY: 0.4;
   stroke-dasharray: 1,4;
   stroke-width: 1px;
   opacity: 0.0;
+  pointer-events: none;
 }
 
 @keyframes line-fade {
@@ -117,7 +160,7 @@ $LOW_OPACITY: 0.4;
 
 @keyframes fade-in {
   0% {
-    opacity: $LOW_OPACITY;
+    opacity: $MEDIUM_OPACITY;
   }
 
   100% {

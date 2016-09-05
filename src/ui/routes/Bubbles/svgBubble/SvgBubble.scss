@@ -8,6 +8,9 @@ $pal_width: $stream_width * 7;
 $MN_HIGHWAY_BLUE: #223A74;
 $MN_HIGHWAY_YELLOW: #FECC08;
 
+$RAILROAD_YELLOW: #FFD136;
+$RAILROAD_BLACK: #010101;
+
 $tributary_width: $stream_width;
 $tributary_pal_width: $tributary_width * 7;
 
@@ -15,6 +18,12 @@ $tributary_pal_width: $tributary_width * 7;
   .usHighway {
     stroke: $DARK_HENDRICKSON;
     stroke-width: 0.1em;
+    fill: $DOUBLE_HAUL_WHITE;
+  }
+
+  .mnCounty {
+    stroke: $DARK_HENDRICKSON;
+    stroke-width: 0.05em;
     fill: $DOUBLE_HAUL_WHITE;
   }
 
@@ -28,7 +37,7 @@ $tributary_pal_width: $tributary_width * 7;
     .background {
       fill: $MN_HIGHWAY_YELLOW;
       stroke: $DARK_HENDRICKSON;
-      stroke-width: 0.1em;
+      stroke-width: 0.05em;
     }
 
     .state {
@@ -47,7 +56,26 @@ $tributary_pal_width: $tributary_width * 7;
 
     .roadNumber {
        // fill: #FFFFFF;
-       display: none;
+      display: none;
+    }
+  }
+
+  .externalLink {
+    fill: $DARK_HENDRICKSON;
+    .externalLink_arrow {
+      fill: $COOL_WATER;
+    }
+  }
+
+  .railroad {
+    fill: $DARK_HENDRICKSON;
+
+    .railroad_highlight {
+      fill: $MN_HIGHWAY_YELLOW;
+    }
+
+    .railroad_border {
+      fill: $RAILROAD_BLACK;
     }
   }
 }
