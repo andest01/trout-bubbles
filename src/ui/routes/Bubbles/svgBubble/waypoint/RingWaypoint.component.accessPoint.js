@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import RingWaypointLineComponent from './RingWaypoint.component.line'
 import RingWaypointLabelComponent from './RingWaypoint.component.label'
-const TAU = Math.PI * 2
 
 import accessPointClasses from './RingWaypoint.accessPoint.scss'
 import waypointClasses from './RingWaypoint.scss'
@@ -75,8 +74,10 @@ const RingWaypointAccessPointComponent = React.createClass({
 
   onClick (e) {
     e.preventDefault()
-    let { centroid_latitude, centroid_longitude } = this.props.accessPoint.properties
-    let url = `https://www.google.com/maps/@${centroid_latitude},${centroid_longitude},16z`
+    // let { centroid_latitude, centroid_longitude } = this.props.accessPoint.properties
+    let centroidLatitude = this.props.accessPoint.properties.centroid_latitude
+    let centroidLongitude = this.props.accessPoint.properties.centroid_longitude
+    let url = `https://www.google.com/maps/@${centroidLatitude},${centroidLongitude},16z`
     window.open(url, '_blank')
   },
 
@@ -84,7 +85,12 @@ const RingWaypointAccessPointComponent = React.createClass({
     let asdf = -6
     return <g>
       <use className={accessPointClasses.roadSignText} xlinkHref='#us-interstate' x={asdf} y={asdf} />
-      <text className={accessPointClasses.roadSignText} textAnchor='middle' x={asdf + 6} y={asdf + 6} dominantBaseline='central' >{number}</text>
+      <text
+        className={accessPointClasses.roadSignText}
+        textAnchor='middle'
+        x={asdf + 6}
+        y={asdf + 6}
+        dominantBaseline='central' >{number}</text>
     </g>
   },
 
@@ -100,7 +106,10 @@ const RingWaypointAccessPointComponent = React.createClass({
     let asdf = -6
     return (<g>
       <use className={accessPointClasses.roadSign} xlinkHref='#mn-highway' x={asdf} y={asdf} />
-      <text className={accessPointClasses.roadSignText} textAnchor='middle' x={asdf + 6} y={asdf + 7} dominantBaseline='central'>{number}</text>
+      <text
+        className={accessPointClasses.roadSignText}
+        textAnchor='middle' x={asdf + 6} y={asdf + 7}
+        dominantBaseline='central'>{number}</text>
     </g>)
     // return null
   },
@@ -125,7 +134,12 @@ const RingWaypointAccessPointComponent = React.createClass({
     let asdf = -6
     return (<g>
       <use className={accessPointClasses.roadSign} xlinkHref='#mn-county' x={asdf} y={asdf} />
-      <text className={accessPointClasses.roadSignTextDark} textAnchor='middle' x={asdf + 6} y={asdf + 6} dominantBaseline='central'>{number}</text>
+      <text
+        className={accessPointClasses.roadSignTextDark}
+        textAnchor='middle'
+        x={asdf + 6}
+        y={asdf + 6}
+        dominantBaseline='central'>{number}</text>
     </g>)
   },
 
@@ -168,8 +182,8 @@ const RingWaypointAccessPointComponent = React.createClass({
   },
 
   getMarkerComponent () {
-    let externalLink = <use xlinkHref='#externalLink' x={asdf - 4} y={asdf} />
-    let asdf = -6
+    // let externalLink = <use xlinkHref='#externalLink' x={asdf - 4} y={asdf} />
+    // let asdf = -6
     return (<g>
       <rect x='-3' y='-0.5' width='5' height='1' />
     </g>)

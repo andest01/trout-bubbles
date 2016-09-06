@@ -8,30 +8,30 @@ const BubbleComponent = React.createClass({
   },
 
   render () {
-    let publicLand = _.reduce(this.props.stream.palSections, (sum, item) => {
-      let start = item.properties.start
-      let stop = item.properties.stop
-      let length = stop - start
+    // let publicLand = _.reduce(this.props.stream.palSections, (sum, item) => {
+    //   let start = item.properties.start
+    //   let stop = item.properties.stop
+    //   let length = stop - start
 
-      return sum + length
-    }, 0).toFixed(2)
+    //   return sum + length
+    // }, 0).toFixed(2)
 
-    let streamSectionLength = _.reduce(this.props.stream.sections, (sum, item) => {
-      let length = item.properties.length_mi
-      return sum + length
-    }, 0).toFixed(2)
+    // let streamSectionLength = _.reduce(this.props.stream.sections, (sum, item) => {
+    //   let length = item.properties.length_mi
+    //   return sum + length
+    // }, 0).toFixed(2)
 
-    let restrictionsLength = _.reduce(this.props.stream.restrictions, (sum, item) => {
-      let start = item.properties.start
-      let stop = item.properties.stop
-      let length = stop - start
+    // let restrictionsLength = _.reduce(this.props.stream.restrictions, (sum, item) => {
+    //   let start = item.properties.start
+    //   let stop = item.properties.stop
+    //   let length = stop - start
 
-      return sum + length
-    }, 0).toFixed(2)
+    //   return sum + length
+    // }, 0).toFixed(2)
 
-    let roadCrossings = this.props.stream.accessPoints.length.toFixed(2)
-    let publicRoadCrossings = this.props.stream.accessPoints.filter(item => item.is_over_publicly_accessible_land
- === 1).length.toFixed(2)
+ //    let roadCrossings = this.props.stream.accessPoints.length.toFixed(2)
+ //    let publicRoadCrossings = this.props.stream.accessPoints.filter(item => item.is_over_publicly_accessible_land
+ // === 1).length.toFixed(2)
     return (
       <div className={classes.bubble}>
         <div className={classes.bubbleHeader}>

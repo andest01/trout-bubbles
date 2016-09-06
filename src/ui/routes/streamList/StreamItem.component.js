@@ -1,4 +1,4 @@
-
+/* eslint max-len: 0 */
 import React, { PropTypes } from 'react'
 import classes from './StreamItem.style.scss'
 import _ from 'lodash'
@@ -34,14 +34,14 @@ const StreamItemComponent = React.createClass({
 
   renderAlert () {
     return (
-        <svg className={classes.alert} version='1.1' viewBox='0 0 32 32'>
-        { this.props.stream.restrictions.length > 0 &&
+      <svg className={classes.alert} version='1.1' viewBox='0 0 32 32'>
+        {this.props.stream.restrictions.length > 0 &&
           <g>
             <path d='M31.858 27.675c-3.196-5.42-11.116-18.857-14.395-24.42-0.987-1.672-1.947-1.641-2.859-0.096-3.223 5.464-11.137 18.878-14.395 24.402-0.004 0.006-0.87 2.439 0.954 2.439h29.561c1.969 0 1.048-2.471 1.134-2.325z'></path>
             <text className='alert-text' x='13' y='25' fontSize='20'>!</text>
           </g>
         }
-        </svg>
+      </svg>
     )
   },
 

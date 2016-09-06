@@ -27,7 +27,6 @@ const RingAxisComponent = React.createClass({
     let rotatePhaseDegrees = rotatePhase * RADIANS_TO_DEGREES
     let isReallyLongStream = length > 50
 
-
     return _.times(ticks + 1).map(index => {
       let rotationDegrees = tickDegrees * index - rotatePhaseDegrees
 
@@ -51,7 +50,7 @@ const RingAxisComponent = React.createClass({
         ? -6
         : 6
 
-      let preRotate = `rotate(${rotationDegrees})`
+      // let preRotate = `rotate(${rotationDegrees})`
       // let offsetTranslate = `translate(${radius},0)`
       let secondTranslate = `translate(${width * 0.5},${height * 0.5})`
       let rotate = `rotate(${rotationDegrees})`

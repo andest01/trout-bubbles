@@ -33,5 +33,5 @@ export const getTiming = (props, animationScale = ANIMATION_SCALE, sectionsLengt
   obj.troutSectionSpeed = (800 * animationScale / Math.max(props.streamPackage.sections.length, 1))
   obj.accessPointSpeed = (1600 * animationScale / Math.max(props.streamPackage.accessPoints.length, 1))
 
-  return obj  
+  return obj
 }

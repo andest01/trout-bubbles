@@ -36,12 +36,13 @@ export class RegionGeometryApiService extends BaseApi {
         let restrictionsMap = _.groupBy(objects.restriction_section.features, 'properties.stream_gid')
         let palMap = _.groupBy(objects.pal_routes.features, 'properties.stream_gid')
         let accessMap = _.groupBy(objects.stream_access_point.features, 'properties.stream_gid')
-        let tributaries = _.groupBy(objects.stream_tributary.features.filter(x => x.properties.linear_offset > 0.0001 && x.properties.linear_offset < 0.999), 'properties.stream_gid')
-          
+        let tributaries = _.groupBy(objects.stream_tributary.features
+            .filter(x => x.properties.linear_offset > 0.0001 && x.properties.linear_offset < 0.999),
+             'properties.stream_gid')
 
-        let debuggeringDesiredStreams = [4, 8, 14, 27, 54, 58, 57, 72, 333, 500]
+        // let debuggeringDesiredStreams = [4, 8, 14, 27, 54, 58, 57, 72, 333, 500]
         // let debuggeringDesiredStreams = [57]
-        let tempStreamDictionary = _.keyBy(objects.streamProperties.features, 'properties.gid')
+        // let tempStreamDictionary = _.keyBy(objects.streamProperties.features, 'properties.gid')
         let tempCircleDictionary = _.keyBy(objects.bounding_circles.features, 'properties.gid')
         let streamDictionary = objects.streamProperties.features
           // .slice(187, 188)

@@ -11,14 +11,6 @@ export const getStreamGroups = createSelector(
     }
     let result = _.valuesIn(streamDictionary)
     result = _.sortBy(result, 'stream.properties.name')
-      .filter(s => {
-        let hasHighwaysOrRailroads = s.accessPoints
-          // .filter(ap => ap.properties.road_type_id === 2)
-          .filter(ap => ap.properties.road_type_id > 4)
-          .length > 4
-        console.log(hasHighwaysOrRailroads)
-        return hasHighwaysOrRailroads
-      })
     let groups = _.groupBy(result, item => {
       return item.stream.properties.name.charAt(0)
     })
@@ -28,4 +20,4 @@ export const getStreamGroups = createSelector(
 
     return groups
   }
-)   
+)

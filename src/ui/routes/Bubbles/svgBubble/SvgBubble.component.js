@@ -1,13 +1,14 @@
+/* eslint max-len: 0 */
 import React, { PropTypes } from 'react'
 import classes from './SvgBubble.scss'
 import * as d3 from 'd3'
 import _ from 'lodash'
 import StreamComponent from './stream/Stream.component'
-import { getProjectionFromFeature } from './SvgBubble.selectors'
+import { getProjectionFromFeature, getTiming } from './SvgBubble.selectors'
 import RingComponent from './ring/Ring.component'
-import { getTiming } from './SvgBubble.selectors'
+// import { getTiming } from './SvgBubble.selectors'
 // import RingWaypointComponent from './waypoint/RingWaypoint.component'
-import RingWaypointLabelComponent from './waypoint/RingWaypoint.component.label'
+// import RingWaypointLabelComponent from './waypoint/RingWaypoint.component.label'
 import RingWaypointAccessPointComponent from './waypoint/RingWaypoint.component.accessPoint'
 import RingWaypointStreamComponent from './waypoint/RingWaypoint.component.stream'
 

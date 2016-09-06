@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
-import classes from './SvgBubble.scss'
-import * as d3 from 'd3'  
-import anime from 'animejs'
+// import classes from './SvgBubble.scss'
+// import * as d3 from 'd3'
+// import anime from 'animejs'
 
 const SvgAnimatedPathComponent = React.createClass({
   propTypes: {
@@ -12,7 +12,7 @@ const SvgAnimatedPathComponent = React.createClass({
   },
 
   componentWillMount () {
-    
+
   },
 
   animate (path, lengthInMilliseconds, pathLength) {
@@ -22,13 +22,13 @@ const SvgAnimatedPathComponent = React.createClass({
     path.style.removeProperty('stroke')
     path.style.removeProperty('display')
     this.props.cssName.split(' ').forEach(token => {
-      if (token == null || token.length == 0) {
+      if (token == null || token.length === 0) {
         return
       }
-      
+
       path.classList.add(token)
     })
-    
+
     path.getBoundingClientRect()
     // Define our transition
     path.style.transition = path.style.WebkitTransition =
@@ -41,7 +41,7 @@ const SvgAnimatedPathComponent = React.createClass({
     if (path == null) {
       return
     }
-    
+
     let length = path.getTotalLength()
     path.style.display = 'none'
 

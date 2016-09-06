@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import classes from './StreamList.style.scss'
 import StreamItemComponent from './StreamItem.component'
-import { StickyContainer, Sticky } from 'react-sticky';
+// import { StickyContainer, Sticky } from 'react-sticky';
 import _ from 'lodash'
 
 const StreamListContainer = React.createClass({
@@ -28,22 +28,22 @@ const StreamListContainer = React.createClass({
                   <h4>{key}</h4>
                 </div>
                 <hr />
-                  <ul className={classes.list}>
-                  {
-                    value.map((streamItem, index) => {
-                      return (
-                        <li key={streamItem.stream.properties.gid} className={'' + classes.item}>
-                          <StreamItemComponent index={index + 1} stream={streamItem} />
-                        </li>)
-                    })
-                  }
-                  </ul>
+                <ul className={classes.list}>
+                {
+                  value.map((streamItem, index) => {
+                    return (
+                      <li key={streamItem.stream.properties.gid} className={'' + classes.item}>
+                        <StreamItemComponent index={index + 1} stream={streamItem} />
+                      </li>)
+                  })
+                }
+                </ul>
               </div>
             )
           })
         }
       </div>)
   }
-})// 
-// 
+})
+
 export default StreamListContainer

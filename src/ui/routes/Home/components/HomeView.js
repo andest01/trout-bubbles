@@ -1,6 +1,6 @@
 import React from 'react'
-import DuckImage from '../assets/Duck.jpg'
-import classes from './HomeView.scss'
+// import DuckImage from '../assets/Duck.jpg'
+// import classes from './HomeView.scss'
 import SectionComponent from './explainerSection/Section.component'
 export const HomeView = () => (
   <div>

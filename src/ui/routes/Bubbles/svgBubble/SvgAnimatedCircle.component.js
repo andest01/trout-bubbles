@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import classes from './SvgBubble.scss'
-import * as d3 from 'd3'  
+import * as d3 from 'd3'
 import anime from 'animejs'
 
 const SvgAnimatedCircle = React.createClass({
@@ -13,7 +13,7 @@ const SvgAnimatedCircle = React.createClass({
   },
 
   componentWillMount () {
-    
+
   },
 
   animate (path, lengthInMilliseconds, pathLength) {
@@ -45,7 +45,7 @@ const SvgAnimatedCircle = React.createClass({
 
   render () {
     return (
-      <path ref={this.onCreatePath} 
+      <path ref={this.onCreatePath}
         className={this.props.cssName}
         cx={this.props.coordinates[0]}
         cy={this.props.coordinates[1]}

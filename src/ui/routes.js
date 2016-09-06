@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, IndexRoute, Redirect } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 // import CoreLayout from 'ui/coreComponents/layout/CoreLayout'
 import CoreLayout from './layouts/CoreLayout/CoreLayout'
 import HomeContainer from './routes/Home/components/HomeView'

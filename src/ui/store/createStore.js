@@ -23,7 +23,7 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  
+
   const store = createStore(
     makeRootReducer,
     initialState,

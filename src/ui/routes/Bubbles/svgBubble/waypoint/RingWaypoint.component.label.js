@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
-import _ from 'lodash'
+// import _ from 'lodash'
 // import classes from '../SvgBubble.scss'
 import waypointClasses from './RingWaypoint.scss'
-import accessPointClasses from './RingWaypoint.accessPoint.scss'
+// import accessPointClasses from './RingWaypoint.accessPoint.scss'
 // change to 1.0 for perfect left-right labels.
 // change to 0.0 for perfect orthoganal labels.
-const LABEL_ANGULAR_COMPRESSION = 0.0
+// const LABEL_ANGULAR_COMPRESSION = 0.0
 // rotates
 const RingWaypointLabelComponent = React.createClass({
   propTypes: {

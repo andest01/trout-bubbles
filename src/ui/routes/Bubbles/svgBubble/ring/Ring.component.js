@@ -4,7 +4,7 @@ import RingSectionComponent from './RingSection.component'
 
 import classes from '../SvgBubble.scss'
 const FISH_SANCTUARY_ID = 7
-const ANIMATION_SCALE = 2.0
+// const ANIMATION_SCALE = 2.0
 
 const RingComponent = React.createClass({
   propTypes: {
@@ -67,7 +67,8 @@ const RingComponent = React.createClass({
   renderRestrictionRings () {
     return this.props.streamPackage.restrictions.map((restriction, restrictionIndex) => {
       let streamLength = this.props.streamPackage.stream.properties.length_mi
-      let itemOffset = ((streamLength - restriction.properties.stop) / streamLength) * this.props.timing.troutSectionSpeed
+      let positionOffset = ((streamLength - restriction.properties.stop) / streamLength)
+      let itemOffset = positionOffset * this.props.timing.troutSectionSpeed
       let offset = this.props.timing.baseTroutSectionOffset + itemOffset
       let className = restriction.properties.restriction_id === FISH_SANCTUARY_ID
         ? classes.fishSanctuary

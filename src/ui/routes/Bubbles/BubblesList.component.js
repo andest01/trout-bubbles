@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'; 
+import React, { PropTypes } from 'react'
 import classes from './BubblesList.scss'
 import BubbleComponent from './Bubble.component'
 
@@ -9,7 +9,7 @@ const BubblesListComponent = React.createClass({
   },
 
   componentDidMount () {
-    this.props.getSouthEasternStreams();
+    this.props.getSouthEasternStreams()
   },
 
   render () {
