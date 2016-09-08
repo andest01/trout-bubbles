@@ -16,12 +16,10 @@ export class RegionGeometryApiService extends BaseApi {
   }
 
   getRegion (stateId, regionId) {
-    debugger
     if (_.isEmpty(this.cache) === false) {
       return Promise.resolve(this.cache)
     }
 
-    debugger
     var promise = RegionApiService.getRegion(stateId, 'result')
       .then(geometry => {
         let bounds = topojson.feature(geometry, geometry.objects.bounding_square_circles)
