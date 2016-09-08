@@ -175,7 +175,7 @@ const RingWaypointAccessPointComponent = React.createClass({
         return `${roadTypeDictionary[roadId].prefix} ${this.props.accessPoint.properties.road_shield_text}`
       }
 
-      console.log(this.props.accessPoint.properties.street_name, this.props.accessPoint.properties.road_type_id)
+      // console.log(this.props.accessPoint.properties.street_name, this.props.accessPoint.properties.road_type_id)
       // return `${roadTypeDictionary[roadId].prefix} ${this.props.accessPoint.properties.road_shield_text}`
     }
     return this.props.accessPoint.properties.street_name

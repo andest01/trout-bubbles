@@ -21,16 +21,17 @@ const StreamListContainer = React.createClass({
         <h4>Displaying 0 streams</h4>
         {
           _.map(this.props.streams, (value, key) => {
-            // console.log(value)
+            console.log(value)
             return (
               <div key={key}>
                 <div className={classes.myHeaderLol}>
                   <h4>{key}</h4>
+                  <hr />
                 </div>
-                <hr />
+                
                 <ul className={classes.list}>
                 {
-                  value.map((streamItem, index) => {
+                  value[0].streams.map((streamItem, index) => {
                     return (
                       <li key={streamItem.stream.properties.gid} className={'' + classes.item}>
                         <StreamItemComponent index={index + 1} stream={streamItem} />

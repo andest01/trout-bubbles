@@ -16,9 +16,14 @@ export class RegionGeometryApiService extends BaseApi {
   }
 
   getRegion (stateId, regionId) {
+    debugger
+    if (_.isEmpty(this.cache) === false) {
+      return Promise.resolve(this.cache)
+    }
+
+    debugger
     var promise = RegionApiService.getRegion(stateId, 'result')
       .then(geometry => {
-        console.log(geometry)
         let bounds = topojson.feature(geometry, geometry.objects.bounding_square_circles)
         return {
           trout_stream_section: topojson.feature(geometry, geometry.objects.trout_stream_section),
@@ -111,10 +116,15 @@ export class RegionGeometryApiService extends BaseApi {
             })
         })
 
+        // return streamDictionary
+        // sessionStorage.stateIdPromise = JSON.stringify(streamDictionary)
+        this.cache = streamDictionary
         return streamDictionary
       })
     // this.cache.set(regionKey, promise)
-    return promise
+    // sessionStorage.stateIdPromise = promise
+    this.cache = promise
+    return this.cache
   }
 }
 

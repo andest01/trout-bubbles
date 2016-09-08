@@ -5,7 +5,7 @@ import lscache from 'lscache'
 export default class BaseApi {
   constructor (settings) {
     this.settings = settings
-    this.cache = lscache
+    this.cache = {}
   }
 
   constructEndpoint (endpoint) {

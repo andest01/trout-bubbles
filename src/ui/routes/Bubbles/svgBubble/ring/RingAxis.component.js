@@ -31,7 +31,7 @@ const RingAxisComponent = React.createClass({
       let rotationDegrees = tickDegrees * index - rotatePhaseDegrees
 
       if (rotationDegrees > 90) {
-        console.log(index)
+        // console.log(index)
       }
 
       let humanReadableRotationDegrees = rotationDegrees > 90

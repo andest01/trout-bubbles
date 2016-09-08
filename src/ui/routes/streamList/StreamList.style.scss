@@ -1,11 +1,13 @@
 @import "~bootstrap/scss/_variables";
 @import "~normalize.css/normalize";
+@import "src/ui/styles/_color";
 
 .streamList {}
 
 .myHeaderLol {
   position: sticky;
   top: -1px;
+  background-color: $OVERCAST;
 }
 
 .list {

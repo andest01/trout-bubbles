@@ -16,15 +16,17 @@ const StreamItemComponent = React.createClass({
   componentWillMount () {
     // this.props.getSouthEasternStreams();
     let length = _.sumBy(this.props.stream.sections, section => { return section.properties.length_mi })
-    let publicLength = _.sumBy(this.props.stream.palSections, section => {
-      return section.properties.stop - section.properties.start
-    })
+    // let publicLength = _.sumBy(this.props.stream.palSections, section => {
+    //   return section.properties.stop - section.properties.start
+    // })
+    let publicLength = this.props.stream.stream.properties.publicly_accessible_trout_stream_section_length
     // TODO: fix this later...
     publicLength = Math.min(length, publicLength)
 
     this.waterRadius = this.computeRadiusFromLength(length)
     let publicLandLengthToWaterLengthRatio = publicLength / length
     this.publicLandRadius = this.waterRadius * publicLandLengthToWaterLengthRatio
+    this.length = this.computeRadiusFromLength(this.props.stream.stream.properties.length_mi)
   },
 
   computeRadiusFromLength (length) {
@@ -49,6 +51,7 @@ const StreamItemComponent = React.createClass({
     return (
       <svg className={' ' + classes.ratio} viewBox={`0 0 ${MAX_DIMENSION} ${MAX_DIMENSION}`} version='1.1'
         xmlns='http://www.w3.org/2000/svg'>
+        <circle className={classes.backdrop} cx={CENTER} cy={CENTER} r={this.length * SQUISH_FACTOR} />
         <circle className={classes.section} cx={CENTER} cy={CENTER} r={this.waterRadius * SQUISH_FACTOR} />
         <circle className={classes.public} cx={CENTER} cy={CENTER} r={this.publicLandRadius * SQUISH_FACTOR} />
       </svg>

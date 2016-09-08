@@ -1,3 +1,5 @@
+@import "src/ui/styles/_color";
+
 .streamItemContainer {
   // display: flex;
   // flex: 1;
@@ -14,12 +16,17 @@
   overflow: visible !important;
 }
 
+.backdrop {
+  // fill: none; $LIGHT_WATER;
+  fill: none;
+}
+
 .section {
-  fill: #4e7f84;
+  fill: $COOL_WATER;
 }
 
 .public {
-  fill: #acbb39;
+  fill: $BROOK_TROUT;
 }
 
 .alert {
