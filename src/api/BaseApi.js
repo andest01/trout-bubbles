@@ -1,5 +1,5 @@
 import axios from 'axios'
-import lscache from 'lscache'
+// import lscache from 'lscache'
 // import config from '../config';
 
 export default class BaseApi {
