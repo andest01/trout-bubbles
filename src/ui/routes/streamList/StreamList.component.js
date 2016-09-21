@@ -27,6 +27,9 @@ const StreamListContainer = React.createClass({
     let publicLandLengthToWaterLengthRatio = publicLength / length
     streamItemObject.publicLandRadius = streamItemObject.waterRadius * publicLandLengthToWaterLengthRatio
     streamItemObject.length = this.computeRadiusFromLength(streamObject.stream.properties.length_mi)
+    streamItemObject.streamLength = streamObject.stream.properties.length_mi
+    streamItemObject.publicLength = streamObject.stream.properties.publicly_accessible_trout_stream_section_length
+    streamItemObject.troutLength = length
     streamItemObject.name = streamObject.stream.properties.name
     streamItemObject.id = streamObject.stream.properties.gid
     streamItemObject.hasAlert = streamObject.restrictions.length > 0
@@ -56,15 +59,20 @@ const StreamListContainer = React.createClass({
                 {
                   value.map((streamItem, index) => {
                     let streamItemProperties = this.getStreamItemData(streamItem)
+                    let publiclyAccessibleAccessPoints = streamItem.accessPoints.filter(ap => ap.properties.is_over_publicly_accessible_land === 1 && ap.properties.is_over_trout_stream === 1).length
                     return (
                       <li key={streamItem.stream.properties.gid} className={'' + classes.item}>
                         <StreamItemComponent
                           index={index + 1}
                           streamRadius={streamItemProperties.length * SQUISH_FACTOR}
+                          streamLength={streamItemProperties.streamLength}
                           troutStreamSectionRadius={streamItemProperties.waterRadius * SQUISH_FACTOR}
+                          troutLength={streamItemProperties.troutLength}
                           publiclyAccessibleTroutStreamSectionRadius={streamItemProperties.publicLandRadius * SQUISH_FACTOR}
+                          publicLength={streamItemProperties.publicLength}
                           id={streamItemProperties.id}
                           name={streamItemProperties.name}
+                          publiclyAccessibleAccessPoints={publiclyAccessibleAccessPoints}
                           hasAlert={streamItemProperties.hasAlert} />
                       </li>)
                   })

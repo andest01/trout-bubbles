@@ -3,6 +3,18 @@ import React, { PropTypes } from 'react'
 import classes from './StreamItem.style.scss'
 import _ from 'lodash'
 import { Link } from 'react-router'
+import StreamLengthRatioComponent from './StreamLengthRatio.component'
+import * as d3 from 'd3'
+
+const streamInterpolator = d3.interpolateLab('#dfdfdf', '#97caff')
+const streamQuantile = [0, 10, 20, 30, 40]
+const maxStreamLength = 40
+const troutLengthInterpolator = d3.interpolateLab('#dfdfdf', '#4e7f84')
+const maxTroutLength = 20
+const troutQuantile = [0, 5, 10, 15, 20]
+const publicLengthInterpolator = d3.interpolateLab('#dfdfdf', '#acbb39')
+const maxPublicLength = 20
+const publicQuantile = [0, 5, 10, 15, 20]
 
 const MAX_DIMENSION = 24
 const CENTER = MAX_DIMENSION / 2
@@ -16,7 +28,11 @@ const StreamItemComponent = React.createClass({
     publiclyAccessibleTroutStreamSectionRadius: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     id: PropTypes.number,
-    hasAlert: PropTypes.bool.isRequired
+    hasAlert: PropTypes.bool.isRequired,
+    streamLength: PropTypes.number.isRequired,
+    troutLength: PropTypes.number.isRequired,
+    publicLength: PropTypes.number.isRequired,
+    publiclyAccessibleAccessPoints: PropTypes.number.isRequired
   },
 
   renderAlert () {
@@ -55,14 +71,21 @@ const StreamItemComponent = React.createClass({
   },
 
   render () {
+    // let result = d3.interpolateLab('#dfdfdf', '#4e7f84')(0.5) // "rgb(142, 92, 109)"
+    let t = d3.quantile(streamQuantile, this.props.streamLength / maxStreamLength)  / maxStreamLength
+    console.log(t)
+    let streamColor = streamInterpolator(t)
+    let troutColor = troutLengthInterpolator(d3.quantile(troutQuantile, this.props.troutLength / maxTroutLength)  / maxTroutLength)
+    let publicColor = publicLengthInterpolator(Math.min(this.props.publiclyAccessibleAccessPoints, 0.5))
     return (<div className={classes.streamItemContainer}>
-      <span className={classes.alert} >{this.renderAlert()}</span>
-      <span className={classes.ratio} >{this.renderStreamRatio()}</span>
+      <StreamLengthRatioComponent length={this.props.publiclyAccessibleAccessPoints} color={publicColor} />
       <span className={classes.name} >
         {this.renderStreamName()}
       </span>
+      <span className={classes.alert} >{this.renderAlert()}</span>
     </div>)
   }
 })
+// <span className={classes.ratio} >{this.renderStreamRatio()}</span>
 // {this.renderAlert()}
 export default StreamItemComponent
